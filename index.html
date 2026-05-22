@@ -318,7 +318,7 @@ footer strong { color: rgba(255,255,255,0.7); }
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-label">Beasiswa Sobat Bumi 2026 — Aksi Nyata Transisi Energi</div>
+  <div class="hero-label">Aksi Nyata Transisi Energi</div>
   <h1 class="hero-title">Optimalisasi Transisi Energi Melalui Pemodelan Data Berbasis Dampak Terukur</h1>
   <p class="hero-sub">Dashboard ini menampilkan proyeksi dampak dan data lapangan dari aksi nyata analisis konsumsi energi rumah tangga urban di Indonesia.</p>
   <div class="hero-meta">
@@ -357,13 +357,13 @@ footer strong { color: rgba(255,255,255,0.7); }
         <div class="metric-sdg">SDG 13</div>
         <div class="metric-icon">🌿</div>
         <div class="metric-val"><span id="m1">—</span><span class="metric-unit">ton CO₂e</span></div>
-        <div class="metric-label">Proyeksi reduksi emisi per tahun</div>
+        <div class="metric-label">Proyeksi reduksi emisi/tahun · basis: 0,85 kg CO₂e/kWh (PLN) × 124 kWh/RT/bln × 17%</div>
       </div>
       <div class="metric-card fade-up" data-color="amber">
         <div class="metric-sdg">SDG 7</div>
         <div class="metric-icon">⚡</div>
-        <div class="metric-val"><span id="m2">17</span><span class="metric-unit">%</span></div>
-        <div class="metric-label">Potensi efisiensi konsumsi listrik</div>
+        <div class="metric-val"><span id="m2">10–30</span><span class="metric-unit">%</span></div>
+        <div class="metric-label">Potensi efisiensi RT urban (rata-rata 17%) · Sumber: ESDM/IEA</div>
       </div>
       <div class="metric-card fade-up" data-color="blue">
         <div class="metric-sdg">SDG 10</div>
@@ -549,7 +549,7 @@ footer strong { color: rgba(255,255,255,0.7); }
   <div class="tab-panel" id="tab-sdg">
     <div class="datasource-bar">
       <div class="datasource-dot"></div>
-      Proyeksi dampak berdasarkan pemodelan data — dihitung dari faktor emisi PLN 2023 (0,87 kg CO₂/kWh)
+      Proyeksi dampak berdasarkan pemodelan data — faktor emisi: 0,85 kg CO₂e/kWh (Dirut PLN, web.pln.co.id Okt 2022) · Konsumsi RT: Statistik PLN 2022
     </div>
 
     <p class="section-title">Kontribusi Aksi terhadap SDGs</p>
@@ -596,22 +596,42 @@ footer strong { color: rgba(255,255,255,0.7); }
     <div class="chart-card" style="max-width:600px">
       <div class="chart-header">
         <div>
-          <div class="chart-title">Model Perhitungan Emisi</div>
-          <div class="chart-sub">Berdasarkan faktor emisi PLN 2023 = 0,87 kg CO₂/kWh</div>
+          <div class="chart-title">Model Perhitungan Emisi (Berbasis Data Resmi)</div>
+          <div class="chart-sub">Sumber: Statistik PLN 2022 · web.pln.co.id · Kementerian ESDM</div>
         </div>
       </div>
       <div style="font-size:13px; color:var(--ink2); line-height:2;">
-        <div class="stat-row"><span>Rata-rata konsumsi rumah tangga/bulan</span><strong>155 kWh</strong></div>
-        <div class="stat-row"><span>Faktor emisi PLN (2023)</span><strong>0,87 kg CO₂/kWh</strong></div>
-        <div class="stat-row"><span>Emisi baseline per rumah tangga/tahun</span><strong>1.618 kg CO₂e</strong></div>
-        <div class="stat-row"><span>Potensi efisiensi (dari model data)</span><strong>17%</strong></div>
-        <div class="stat-row"><span>Reduksi per rumah tangga/tahun</span><strong>275 kg CO₂e</strong></div>
         <div class="stat-row">
-          <span>Jumlah responden (live)</span><strong id="calcN">—</strong>
+          <span>Rata-rata konsumsi RT/bulan <span style="font-size:10px;color:var(--ink3)">¹</span></span>
+          <strong>~124 kWh</strong>
+        </div>
+        <div class="stat-row">
+          <span>Faktor emisi listrik PLN <span style="font-size:10px;color:var(--ink3)">²</span></span>
+          <strong>0,85 kg CO₂e/kWh</strong>
+        </div>
+        <div class="stat-row">
+          <span>Emisi baseline per RT/tahun</span>
+          <strong>1.265 kg CO₂e</strong>
+        </div>
+        <div class="stat-row">
+          <span>Potensi efisiensi energi RT <span style="font-size:10px;color:var(--ink3)">³</span></span>
+          <strong>10–30% (rata-rata 17%)</strong>
+        </div>
+        <div class="stat-row">
+          <span>Reduksi per RT/tahun (asumsi 17%)</span>
+          <strong>215 kg CO₂e</strong>
+        </div>
+        <div class="stat-row">
+          <span>Jumlah responden survei (live)</span><strong id="calcN">—</strong>
         </div>
         <div style="display:grid; grid-template-columns:1fr auto; gap:8px; padding:10px; background:var(--green-light); border-radius:var(--radius-sm); margin-top:8px;">
-          <span style="color:var(--green); font-weight:500;">Total reduksi proyeksi</span>
+          <span style="color:var(--green); font-weight:500;">Total reduksi proyeksi (live)</span>
           <strong style="color:var(--green);" id="calcTotal">—</strong>
+        </div>
+        <div style="margin-top:10px; font-size:11px; color:var(--ink3); line-height:1.7; border-top:1px solid var(--border2); padding-top:8px;">
+          <sup>1</sup> Statistik PLN 2022: 116.095 GWh ÷ 78,3 juta pelanggan RT = ~124 kWh/bulan/pelanggan<br>
+          <sup>2</sup> Dirut PLN Darmawan Prasodjo, web.pln.co.id, Oktober 2022<br>
+          <sup>3</sup> Potensi efisiensi 10–30% untuk RT urban — rentang umum dari literatur ESDM & IEA (2022)
         </div>
       </div>
     </div>
@@ -832,12 +852,13 @@ function buildDashboard(rows) {
   document.getElementById('surveyN').textContent = n;
   document.getElementById('m3').textContent = n;
 
-  // CO2 proyeksi
-  const co2 = (n * 275 / 1000).toFixed(1);
+  // CO2 proyeksi — basis: 124 kWh/RT/bln (Statistik PLN 2022) × 0,85 kg CO₂e/kWh (PLN) × 12 bln × 17% = 215 kg/RT/tahun
+  const CO2_PER_RT = 215; // kg CO₂e/RT/tahun
+  const co2 = (n * CO2_PER_RT / 1000).toFixed(1);
   document.getElementById('heroCO2').textContent = co2;
   document.getElementById('m1').textContent = co2;
   document.getElementById('calcN').textContent = n;
-  document.getElementById('calcTotal').textContent = `≈ ${(n*275).toLocaleString('id')} kg = ${co2} ton CO₂e/tahun`;
+  document.getElementById('calcTotal').textContent = `≈ ${(n * CO2_PER_RT).toLocaleString('id')} kg = ${co2} ton CO₂e/tahun`;
 
   // Willing %
   const willingCounts = countValues(rows, 13);
@@ -1078,28 +1099,28 @@ function buildDashboard(rows) {
 function buildStaticCharts() {
 
   /* ── 1. TREN KONSUMSI LISTRIK & PENURUNAN EMISI GRK
-     Konsumsi total (TWh): PLN / RUKN via listrikindonesia.com
-       2020=306, 2021=326, 2022=356, 2023=384 TWh
+     Konsumsi total (TWh): RUKN / listrikindonesia.com
+       2020=306 | 2021=326 | 2022=356 | 2023=384 TWh
      Penurunan emisi GRK sektor energi (juta ton CO₂e): Kementerian ESDM
-       2019=54,8 | 2020=64,4 | 2021=70 | 2022=91,5 | 2023=127,67 juta ton
+       2020=64,4 | 2021=70 | 2022=91,5 | 2023=127,67 juta ton
+     Catatan: data 2019 tidak disertakan karena tidak ditemukan
+     angka total konsumsi TWh resmi yang dapat diverifikasi.
   ── */
   upsertChart('chartTrend', {
     type:'line',
     data:{
-      labels:['2019','2020','2021','2022','2023'],
+      labels:['2020','2021','2022','2023'],
       datasets:[
         {
           label:'Konsumsi listrik nasional (TWh)',
-          // 2019 = estimasi interpolasi (PLN Statistics tidak tersedia lengkap untuk 2019 total)
-          // 2020–2023 = sumber RUKN / listrikindonesia.com
-          data:[282, 306, 326, 356, 384],
+          data:[306, 326, 356, 384],
           borderColor:GREEN, tension:0.4, pointRadius:4,
           pointBackgroundColor:GREEN, fill:false, yAxisID:'y'
         },
         {
           label:'Penurunan emisi GRK sektor energi (juta ton)',
           // Sumber: Kementerian ESDM — Konferensi Pers Capaian 2023 (15 Jan 2024)
-          data:[54.8, 64.4, 70, 91.5, 127.67],
+          data:[64.4, 70, 91.5, 127.67],
           borderColor:AMBER, tension:0.4, pointRadius:4,
           pointBackgroundColor:AMBER, borderDash:[5,3], fill:false, yAxisID:'y1'
         }
@@ -1147,26 +1168,25 @@ function buildStaticCharts() {
     plugins:[ChartDataLabels]
   });
 
-  /* ── 3. TREN PENURUNAN EMISI GRK vs TARGET NDC
-     Sumber: Kementerian ESDM — capaian penurunan GRK 2019–2023
-     Target NDC 2030: penurunan 31,89% dengan upaya sendiri (enhanced NDC 2022)
-     Angka target per tahun = interpolasi linear dari baseline ke 2030
+  /* ── 3. REALISASI vs TARGET PENURUNAN EMISI GRK
+     Sumber: Kementerian ESDM — capaian penurunan GRK 2020–2023
+     Target per tahun diinterpolasi dari target NDC (Enhanced NDC 2022)
   ── */
   upsertChart('chartProjection', {
     type:'bar',
     data:{
-      labels:['2019','2020','2021','2022','2023'],
+      labels:['2020','2021','2022','2023'],
       datasets:[
         {
           label:'Target penurunan (juta ton, NDC)',
-          data:[40, 50, 60, 75, 116],
+          data:[50, 60, 75, 116],
           backgroundColor:'rgba(215,90,48,0.18)',
           borderColor:CORAL, borderWidth:1.5
         },
         {
           label:'Realisasi penurunan (juta ton)',
           // Sumber: Kementerian ESDM (esdm.go.id) — Konferensi Pers 15 Jan 2024
-          data:[54.8, 64.4, 70, 91.5, 127.67],
+          data:[64.4, 70, 91.5, 127.67],
           backgroundColor:'rgba(29,158,117,0.25)',
           borderColor:GREEN, borderWidth:1.5
         }
