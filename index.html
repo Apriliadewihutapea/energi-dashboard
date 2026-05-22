@@ -42,7 +42,7 @@
     min-height: 100vh;
   }
 
-  /* ─── NAV ─── */
+  /* NAV */
   header {
     background: var(--ink);
     padding: 0 2rem;
@@ -77,7 +77,7 @@
     border-radius: 20px; font-weight: 500;
   }
 
-  /* ─── HERO ─── */
+  /* HERO */
   .hero {
     background: var(--ink);
     padding: 3rem 2rem 2.5rem;
@@ -108,7 +108,6 @@
   .hero-meta {
     display: flex; gap: 2rem; margin-top: 2rem; flex-wrap: wrap;
   }
-  .hero-stat { }
   .hero-stat-val {
     font-family: 'Syne', sans-serif;
     font-size: 28px; font-weight: 700; color: #fff;
@@ -117,7 +116,7 @@
   .hero-stat-val span { font-size: 16px; color: var(--teal); }
   .hero-stat-label { font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 3px; }
 
-  /* ─── MAIN LAYOUT ─── */
+  /* MAIN LAYOUT */
   .main { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
 
   .section-title {
@@ -127,7 +126,7 @@
     color: var(--ink3); margin-bottom: 1rem; margin-top: 2.5rem;
   }
 
-  /* ─── METRIC CARDS ─── */
+  /* METRIC CARDS */
   .metric-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -142,15 +141,16 @@
     transition: transform 0.2s;
   }
   .metric-card:hover { transform: translateY(-2px); }
+  /* FIX: gunakan class khusus, bukan data attribute */
   .metric-card::after {
-    content: attr(data-color);
+    content: '';
     position: absolute; bottom: 0; left: 0;
     width: 100%; height: 3px;
   }
-  .metric-card[data-color="green"]::after { background: var(--green-mid); }
-  .metric-card[data-color="amber"]::after { background: var(--amber); }
-  .metric-card[data-color="blue"]::after { background: var(--blue); }
-  .metric-card[data-color="coral"]::after { background: var(--coral); }
+  .metric-card.accent-green::after  { background: var(--green-mid); }
+  .metric-card.accent-amber::after  { background: var(--amber); }
+  .metric-card.accent-blue::after   { background: var(--blue); }
+  .metric-card.accent-coral::after  { background: var(--coral); }
   .metric-icon { font-size: 20px; margin-bottom: 10px; }
   .metric-val {
     font-family: 'Syne', sans-serif;
@@ -166,7 +166,7 @@
     border-radius: 20px;
   }
 
-  /* ─── CHART CARDS ─── */
+  /* CHART CARDS */
   .chart-grid-2 {
     display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
     margin-bottom: 16px;
@@ -198,12 +198,12 @@
     border-radius: 20px; font-weight: 500; white-space: nowrap;
     flex-shrink: 0;
   }
-  .badge-sdg7 { background: var(--amber-light); color: #854F0B; }
+  .badge-sdg7  { background: var(--amber-light); color: #854F0B; }
   .badge-sdg13 { background: var(--green-light); color: #0F6E56; }
-  .badge-sdg10 { background: var(--blue-light); color: #185FA5; }
+  .badge-sdg10 { background: var(--blue-light);  color: #185FA5; }
   .chart-canvas-wrap { position: relative; }
 
-  /* ─── SURVEY SECTION ─── */
+  /* SURVEY */
   .survey-grid {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 12px; margin-bottom: 16px;
@@ -226,11 +226,12 @@
   .survey-bar-fill {
     height: 100%; border-radius: 3px;
     background: var(--green-mid);
+    width: 0%;
     transition: width 1s ease;
   }
   .survey-bar-pct { font-size: 12px; font-weight: 500; color: var(--ink); min-width: 32px; text-align: right; }
 
-  /* ─── SDG PROGRESS ─── */
+  /* SDG PROGRESS */
   .sdg-grid {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 12px;
@@ -257,7 +258,7 @@
   .sdg-progress-fill { height: 100%; border-radius: 3px; }
   .sdg-pct { font-size: 11px; color: var(--ink3); margin-top: 4px; }
 
-  /* ─── FOOTER ─── */
+  /* FOOTER */
   footer {
     background: var(--ink); color: rgba(255,255,255,0.35);
     font-size: 12px; text-align: center; padding: 1.5rem;
@@ -265,7 +266,7 @@
   }
   footer strong { color: rgba(255,255,255,0.7); }
 
-  /* ─── DATA SOURCE NOTE ─── */
+  /* DATA SOURCE NOTE */
   .datasource-bar {
     background: var(--surface2);
     border-radius: var(--radius-sm);
@@ -284,7 +285,7 @@
     50% { opacity: 0.3; }
   }
 
-  /* ─── TABS ─── */
+  /* TABS */
   .tab-bar { display: flex; gap: 6px; margin-bottom: 1.5rem; flex-wrap: wrap; }
   .tab-btn {
     padding: 7px 16px; font-size: 13px;
@@ -295,42 +296,49 @@
     font-family: 'DM Sans', sans-serif;
     transition: all 0.2s;
   }
-  .tab-btn.active {
-    background: var(--ink); color: #fff; border-color: var(--ink);
-  }
+  .tab-btn.active { background: var(--ink); color: #fff; border-color: var(--ink); }
   .tab-btn:hover:not(.active) { background: var(--surface2); }
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
 
-  /* ─── ANIMATION ─── */
+  /* ANIMATION */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(16px); }
-    to { opacity: 1; transform: translateY(0); }
+    to   { opacity: 1; transform: translateY(0); }
   }
   .fade-up { animation: fadeUp 0.5s ease both; }
   .fade-up:nth-child(1) { animation-delay: 0.05s; }
-  .fade-up:nth-child(2) { animation-delay: 0.1s; }
+  .fade-up:nth-child(2) { animation-delay: 0.10s; }
   .fade-up:nth-child(3) { animation-delay: 0.15s; }
-  .fade-up:nth-child(4) { animation-delay: 0.2s; }
+  .fade-up:nth-child(4) { animation-delay: 0.20s; }
+
+  /* LIVE STATUS */
+  .live-status {
+    font-size: 12px; color: var(--ink3);
+    margin-bottom: 0.5rem;
+  }
+  .live-status.error { color: var(--coral); }
+  .live-status.success { color: var(--green); }
 </style>
 </head>
 <body>
 
-<!-- ═══ HEADER ═══ -->
+<!-- HEADER -->
 <header>
   <div class="logo">
     <div class="logo-dot"></div>
     EnergiData
   </div>
+  <!-- FIX: semua tombol meneruskan `this` secara eksplisit; tidak ada .call() -->
   <nav class="nav-links">
-    <button class="nav-link active" onclick="switchTab('overview')">Impact Overview</button>
-    <button class="nav-link" onclick="switchTab('survey')">Data Primer <span class="badge-live">LIVE</span></button>
-    <button class="nav-link" onclick="switchTab('sdg')">Capaian SDG</button>
-    <button class="nav-link" onclick="switchTab('roadmap')">Roadmap</button>
+    <button class="nav-link active" onclick="switchTab('overview', this)">Impact Overview</button>
+    <button class="nav-link" onclick="switchTab('survey', this)">Data Primer <span class="badge-live">LIVE</span></button>
+    <button class="nav-link" onclick="switchTab('sdg', this)">Capaian SDG</button>
+    <button class="nav-link" onclick="switchTab('roadmap', this)">Roadmap</button>
   </nav>
 </header>
 
-<!-- ═══ HERO ═══ -->
+<!-- HERO -->
 <div class="hero">
   <div class="hero-label">Beasiswa Sobat Bumi 2026 — Aksi Nyata Transisi Energi</div>
   <h1 class="hero-title">Optimalisasi Transisi Energi Melalui Pemodelan Data Berbasis Dampak Terukur</h1>
@@ -355,10 +363,10 @@
   </div>
 </div>
 
-<!-- ═══ MAIN ═══ -->
+<!-- MAIN -->
 <main class="main">
 
-  <!-- ─── TAB: OVERVIEW ─── -->
+  <!-- TAB: OVERVIEW -->
   <div class="tab-panel active" id="tab-overview">
     <div class="datasource-bar">
       <div class="datasource-dot"></div>
@@ -366,26 +374,27 @@
     </div>
 
     <p class="section-title">Metrik Dampak Terukur</p>
+    <!-- FIX: ganti data-color dengan class accent-* -->
     <div class="metric-grid">
-      <div class="metric-card fade-up" data-color="green">
+      <div class="metric-card accent-green fade-up">
         <div class="metric-sdg">SDG 13</div>
         <div class="metric-icon">🌿</div>
         <div class="metric-val"><span id="m1">18.4</span><span class="metric-unit">ton CO₂e</span></div>
         <div class="metric-label">Proyeksi reduksi emisi per tahun</div>
       </div>
-      <div class="metric-card fade-up" data-color="amber">
+      <div class="metric-card accent-amber fade-up">
         <div class="metric-sdg">SDG 7</div>
         <div class="metric-icon">⚡</div>
         <div class="metric-val"><span id="m2">17</span><span class="metric-unit">%</span></div>
         <div class="metric-label">Potensi efisiensi konsumsi listrik</div>
       </div>
-      <div class="metric-card fade-up" data-color="blue">
+      <div class="metric-card accent-blue fade-up">
         <div class="metric-sdg">SDG 10</div>
         <div class="metric-icon">👥</div>
         <div class="metric-val"><span id="m3">247</span><span class="metric-unit">org</span></div>
         <div class="metric-label">Sasaran penerima manfaat</div>
       </div>
-      <div class="metric-card fade-up" data-color="coral">
+      <div class="metric-card accent-coral fade-up">
         <div class="metric-sdg">SDG 17</div>
         <div class="metric-icon">🔄</div>
         <div class="metric-val"><span id="m4">5</span><span class="metric-unit">kota</span></div>
@@ -398,12 +407,12 @@
         <div class="chart-header">
           <div>
             <div class="chart-title">Tren Konsumsi Energi vs Emisi CO₂</div>
-            <div class="chart-sub">Data sekunder: PLN & KLHK 2019–2023</div>
+            <div class="chart-sub">Data sekunder: PLN &amp; KLHK 2019–2023</div>
           </div>
           <span class="chart-badge badge-sdg13">SDG 13</span>
         </div>
         <div class="chart-canvas-wrap" style="height:220px">
-          <canvas id="chartTrend"></canvas>
+          <canvas id="chartTrend" role="img" aria-label="Grafik tren konsumsi energi vs emisi CO2 2019-2023"></canvas>
         </div>
       </div>
       <div class="chart-card fade-up">
@@ -415,7 +424,7 @@
           <span class="chart-badge badge-sdg7">SDG 7</span>
         </div>
         <div class="chart-canvas-wrap" style="height:220px">
-          <canvas id="chartSector"></canvas>
+          <canvas id="chartSector" role="img" aria-label="Diagram distribusi konsumsi energi per sektor"></canvas>
         </div>
       </div>
     </div>
@@ -430,7 +439,7 @@
           <span class="chart-badge badge-sdg13">SDG 13</span>
         </div>
         <div class="chart-canvas-wrap" style="height:200px">
-          <canvas id="chartProjection"></canvas>
+          <canvas id="chartProjection" role="img" aria-label="Proyeksi reduksi emisi skenario aksi 2024-2028"></canvas>
         </div>
       </div>
       <div class="chart-card fade-up">
@@ -442,21 +451,30 @@
           <span class="chart-badge badge-sdg7">SDG 7</span>
         </div>
         <div class="chart-canvas-wrap" style="height:200px">
-          <canvas id="chartEBT"></canvas>
+          <canvas id="chartEBT" role="img" aria-label="Grafik faktor emisi vs potensi EBT per provinsi"></canvas>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ─── TAB: SURVEY ─── -->
+  <!-- TAB: SURVEY -->
   <div class="tab-panel" id="tab-survey">
     <div class="datasource-bar">
       <div class="datasource-dot"></div>
-      Data primer — Google Form survei lapangan &nbsp;|&nbsp; Diperbarui otomatis via Google Sheets API &nbsp;|&nbsp; n = <strong id="surveyN">247</strong> responden
+      Data primer — Google Form survei lapangan &nbsp;|&nbsp; Diperbarui otomatis via Google Sheets CSV &nbsp;|&nbsp; n = <strong id="surveyN">247</strong> responden
     </div>
-    <p style="font-size:13px; color:var(--ink3); margin-bottom:1.5rem;">
-      ⚙️ <strong>Cara menghubungkan ke GForm Anda:</strong> ganti nilai variabel <code>SHEET_CSV_URL</code> di bagian script dengan URL CSV publish dari Google Sheets Anda.
+    <!-- FIX: instruksi cara hubungkan GForm diperjelas -->
+    <p style="font-size:13px; color:var(--ink3); margin-bottom:0.5rem;">
+      ⚙️ <strong>Cara menghubungkan ke Google Form Anda:</strong>
     </p>
+    <ol style="font-size:13px; color:var(--ink3); margin-bottom:1.5rem; padding-left:1.4rem; line-height:2;">
+      <li>Buka Google Sheets respons form Anda</li>
+      <li>Klik <strong>File → Share → Publish to web</strong></li>
+      <li>Pilih sheet yang berisi data, format <strong>CSV</strong>, lalu klik <strong>Publish</strong></li>
+      <li>Salin URL yang muncul dan ganti nilai <code>SHEET_CSV_URL</code> di bagian <code>&lt;script&gt;</code></li>
+    </ol>
+    <!-- FIX: status live fetch ditampilkan ke user -->
+    <p id="liveStatus" class="live-status"></p>
 
     <p class="section-title">Distribusi Responden</p>
     <div class="chart-grid-2">
@@ -468,7 +486,7 @@
           </div>
           <span class="chart-badge badge-sdg7">SDG 7</span>
         </div>
-        <div style="height:200px"><canvas id="chartTagihan"></canvas></div>
+        <div style="height:200px"><canvas id="chartTagihan" role="img" aria-label="Distribusi tagihan listrik bulanan responden"></canvas></div>
       </div>
       <div class="chart-card">
         <div class="chart-header">
@@ -478,32 +496,32 @@
           </div>
           <span class="chart-badge badge-sdg13">SDG 13</span>
         </div>
-        <div style="height:200px"><canvas id="chartLiterasi"></canvas></div>
+        <div style="height:200px"><canvas id="chartLiterasi" role="img" aria-label="Distribusi literasi jejak karbon responden"></canvas></div>
       </div>
     </div>
 
-    <p class="section-title">Perangkat Dominan & Potensi Hemat</p>
+    <p class="section-title">Perangkat Dominan &amp; Potensi Hemat</p>
     <div class="survey-grid">
       <div class="survey-item">
         <div class="survey-q">Perangkat paling boros energi di rumah</div>
         <div class="survey-bar-row">
           <div class="survey-bar-label">AC</div>
-          <div class="survey-bar-track"><div class="survey-bar-fill" style="width:0%" data-target="74"></div></div>
+          <div class="survey-bar-track"><div class="survey-bar-fill" data-target="74"></div></div>
           <div class="survey-bar-pct">74%</div>
         </div>
         <div class="survey-bar-row">
           <div class="survey-bar-label">Kulkas</div>
-          <div class="survey-bar-track"><div class="survey-bar-fill" style="width:0%" data-target="58"></div></div>
+          <div class="survey-bar-track"><div class="survey-bar-fill" data-target="58"></div></div>
           <div class="survey-bar-pct">58%</div>
         </div>
         <div class="survey-bar-row">
           <div class="survey-bar-label">Water heater</div>
-          <div class="survey-bar-track"><div class="survey-bar-fill" style="width:0%" data-target="41"></div></div>
+          <div class="survey-bar-track"><div class="survey-bar-fill" data-target="41"></div></div>
           <div class="survey-bar-pct">41%</div>
         </div>
         <div class="survey-bar-row">
           <div class="survey-bar-label">TV + set-top</div>
-          <div class="survey-bar-track"><div class="survey-bar-fill" style="width:0%" data-target="33"></div></div>
+          <div class="survey-bar-track"><div class="survey-bar-fill" data-target="33"></div></div>
           <div class="survey-bar-pct">33%</div>
         </div>
       </div>
@@ -511,22 +529,22 @@
         <div class="survey-q">Kesediaan beralih ke perilaku hemat energi</div>
         <div class="survey-bar-row">
           <div class="survey-bar-label">Sangat mau</div>
-          <div class="survey-bar-track"><div class="survey-bar-fill" style="width:0%; background:var(--green-mid)" data-target="38"></div></div>
+          <div class="survey-bar-track"><div class="survey-bar-fill" data-target="38" style="background:var(--green-mid)"></div></div>
           <div class="survey-bar-pct">38%</div>
         </div>
         <div class="survey-bar-row">
           <div class="survey-bar-label">Mau</div>
-          <div class="survey-bar-track"><div class="survey-bar-fill" style="width:0%; background:var(--teal)" data-target="44"></div></div>
+          <div class="survey-bar-track"><div class="survey-bar-fill" data-target="44" style="background:var(--teal)"></div></div>
           <div class="survey-bar-pct">44%</div>
         </div>
         <div class="survey-bar-row">
           <div class="survey-bar-label">Belum tentu</div>
-          <div class="survey-bar-track"><div class="survey-bar-fill" style="width:0%; background:var(--amber)" data-target="14"></div></div>
+          <div class="survey-bar-track"><div class="survey-bar-fill" data-target="14" style="background:var(--amber)"></div></div>
           <div class="survey-bar-pct">14%</div>
         </div>
         <div class="survey-bar-row">
           <div class="survey-bar-label">Tidak mau</div>
-          <div class="survey-bar-track"><div class="survey-bar-fill" style="width:0%; background:var(--coral)" data-target="4"></div></div>
+          <div class="survey-bar-track"><div class="survey-bar-fill" data-target="4" style="background:var(--coral)"></div></div>
           <div class="survey-bar-pct">4%</div>
         </div>
       </div>
@@ -534,29 +552,29 @@
         <div class="survey-q">Sumber informasi energi yang dipercaya</div>
         <div class="survey-bar-row">
           <div class="survey-bar-label">Media sosial</div>
-          <div class="survey-bar-track"><div class="survey-bar-fill" style="width:0%" data-target="62"></div></div>
+          <div class="survey-bar-track"><div class="survey-bar-fill" data-target="62"></div></div>
           <div class="survey-bar-pct">62%</div>
         </div>
         <div class="survey-bar-row">
           <div class="survey-bar-label">Berita online</div>
-          <div class="survey-bar-track"><div class="survey-bar-fill" style="width:0%" data-target="49"></div></div>
+          <div class="survey-bar-track"><div class="survey-bar-fill" data-target="49"></div></div>
           <div class="survey-bar-pct">49%</div>
         </div>
         <div class="survey-bar-row">
           <div class="survey-bar-label">Keluarga/teman</div>
-          <div class="survey-bar-track"><div class="survey-bar-fill" style="width:0%" data-target="37"></div></div>
+          <div class="survey-bar-track"><div class="survey-bar-fill" data-target="37"></div></div>
           <div class="survey-bar-pct">37%</div>
         </div>
         <div class="survey-bar-row">
           <div class="survey-bar-label">Pemerintah</div>
-          <div class="survey-bar-track"><div class="survey-bar-fill" style="width:0%" data-target="28"></div></div>
+          <div class="survey-bar-track"><div class="survey-bar-fill" data-target="28"></div></div>
           <div class="survey-bar-pct">28%</div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ─── TAB: SDG ─── -->
+  <!-- TAB: SDG -->
   <div class="tab-panel" id="tab-sdg">
     <div class="datasource-bar">
       <div class="datasource-dot"></div>
@@ -568,7 +586,7 @@
       <div class="sdg-card fade-up">
         <div class="sdg-icon" style="background:#FAEEDA; color:#854F0B;">SDG<br>7</div>
         <div class="sdg-body">
-          <div class="sdg-name">Energi Bersih & Terjangkau</div>
+          <div class="sdg-name">Energi Bersih &amp; Terjangkau</div>
           <div class="sdg-desc">Peningkatan literasi konsumsi energi pada 247 rumah tangga urban mendorong efisiensi dan akses informasi EBT.</div>
           <div class="sdg-progress-track"><div class="sdg-progress-fill" style="width:72%; background:var(--amber)"></div></div>
           <div class="sdg-pct">72% capaian indikator literasi energi</div>
@@ -627,7 +645,7 @@
         <div style="display:grid; grid-template-columns:1fr auto; gap:8px; padding:8px 0; border-bottom:1px solid var(--border2);">
           <span>Reduksi per rumah tangga/tahun</span><strong>275 kg CO₂e</strong>
         </div>
-        <div style="display:grid; grid-template-columns:1fr auto; gap:8px; padding:10px 0; background:var(--green-light); padding:10px; border-radius:var(--radius-sm); margin-top:8px;">
+        <div style="display:grid; grid-template-columns:1fr auto; gap:8px; padding:10px; background:var(--green-light); border-radius:var(--radius-sm); margin-top:8px;">
           <span style="color:var(--green); font-weight:500;">Total reduksi (247 rumah tangga)</span>
           <strong style="color:var(--green);">≈ 67.925 kg = 18,4 ton CO₂e/tahun</strong>
         </div>
@@ -635,9 +653,9 @@
     </div>
   </div>
 
-  <!-- ─── TAB: ROADMAP ─── -->
+  <!-- TAB: ROADMAP -->
   <div class="tab-panel" id="tab-roadmap">
-    <p class="section-title">Rencana Keberlanjutan & Skalabilitas</p>
+    <p class="section-title">Rencana Keberlanjutan &amp; Skalabilitas</p>
     <div style="display:flex; flex-direction:column; gap:16px;">
       <div class="chart-card fade-up">
         <div style="display:flex; gap:16px; align-items:flex-start;">
@@ -647,7 +665,7 @@
             <div style="width:8px; height:8px; border-radius:50%; background:var(--green-mid); margin-top:8px;"></div>
           </div>
           <div>
-            <div class="chart-title" style="margin-bottom:6px;">Pemodelan & Pengumpulan Data</div>
+            <div class="chart-title" style="margin-bottom:6px;">Pemodelan &amp; Pengumpulan Data</div>
             <div style="font-size:13px; color:var(--ink2); line-height:1.7;">
               Penyusunan model analisis data konsumsi energi rumah tangga urban. Survei Google Form kepada 250+ responden. Integrasi data sekunder dari BPS, PLN, ESDM. Validasi model dengan data lapangan.
             </div>
@@ -666,7 +684,7 @@
             <div style="width:8px; height:8px; border-radius:50%; background:var(--amber); margin-top:8px;"></div>
           </div>
           <div>
-            <div class="chart-title" style="margin-bottom:6px;">Pilot Project & Dashboard Publik</div>
+            <div class="chart-title" style="margin-bottom:6px;">Pilot Project &amp; Dashboard Publik</div>
             <div style="font-size:13px; color:var(--ink2); line-height:1.7;">
               Peluncuran dashboard interaktif ini sebagai platform publik. Kolaborasi dengan komunitas mahasiswa peduli lingkungan di kampus. Uji coba intervensi perilaku berbasis data pada komunitas pilot. Dokumentasi metodologi untuk replikasi.
             </div>
@@ -685,7 +703,7 @@
             <div style="width:8px; height:8px; border-radius:50%; background:var(--blue); margin-top:8px;"></div>
           </div>
           <div>
-            <div class="chart-title" style="margin-bottom:6px;">Replikasi & Integrasi Kebijakan</div>
+            <div class="chart-title" style="margin-bottom:6px;">Replikasi &amp; Integrasi Kebijakan</div>
             <div style="font-size:13px; color:var(--ink2); line-height:1.7;">
               Adopsi model data oleh 5 universitas lain (SDG 17 — kemitraan). Integrasi dengan program efisiensi energi daerah. Publikasi open-source kerangka model untuk komunitas nasional. Target: 1.000+ rumah tangga teredukasi, reduksi 74 ton CO₂e/tahun.
             </div>
@@ -709,42 +727,51 @@
 
 <script>
 /* ══════════════════════════════════════════
-   ★ GANTI URL INI DENGAN CSV GOOGLE SHEETS ANDA
+   Ganti URL ini dengan CSV publish dari Google Sheets Anda.
    Cara: Google Sheets → File → Share → Publish to web → CSV
    ══════════════════════════════════════════ */
-const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQZpujxCfEd-0K8jDi2Vqc1FBty5rZ6hG6rn6E5MZOKX0bWkkF94idvL5UF3DOLVyvcBjbX8lGoExmG/pub?gid=1819131276&single=true&output=csv'
+const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQZpujxCfEd-0K8jDi2Vqc1FBty5rZ6hG6rn6E5MZOKX0bWkkF94idvL5UF3DOLVyvcBjbX8lGoExmG/pub?gid=1819131276&single=true&output=csv';
 
-/* ── TAB SWITCHING ── */
-function switchTab(id) {
+/* Konstanta kalkulasi emisi — ubah jika asumsi berubah */
+const RATA_KWH_BULAN  = 155;
+const FAKTOR_EMISI    = 0.87;
+const PERSEN_EFISIENSI = 0.17;
+const FETCH_TIMEOUT_MS = 8000;
+
+/* ── FIX: switchTab menerima elemen tombol secara eksplisit ── */
+function switchTab(id, btn) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-' + id).classList.add('active');
-  const tabs = ['overview','survey','sdg','roadmap'];
-  document.querySelectorAll('.nav-link')[tabs.indexOf(id)].classList.add('active');
+  btn.classList.add('active');
   animateBars();
 }
 
-/* ── SURVEY BAR ANIMATION ── */
+/* ── Animasi bar survei ── */
 function animateBars() {
-  setTimeout(() => {
-    document.querySelectorAll('.survey-bar-fill').forEach(bar => {
+  setTimeout(function() {
+    document.querySelectorAll('.survey-bar-fill').forEach(function(bar) {
       bar.style.width = bar.dataset.target + '%';
     });
   }, 100);
 }
 
-/* ── CHART DEFAULTS ── */
-const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-Chart.defaults.color = isDark ? 'rgba(255,255,255,0.45)' : '#99999a';
+/* ── FIX: Daftarkan ChartDataLabels secara eksplisit ── */
+Chart.register(ChartDataLabels);
+
+/* ── Konfigurasi global Chart.js ── */
+Chart.defaults.color = '#99999a';
 Chart.defaults.font.family = "'DM Sans', sans-serif";
 Chart.defaults.font.size = 12;
 Chart.defaults.plugins.legend.display = false;
-const gridColor = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(26,26,24,0.06)';
+/* FIX: nonaktifkan datalabels secara global; aktifkan hanya di chart yang butuh */
+Chart.defaults.plugins.datalabels.display = false;
 
+const gridColor = 'rgba(26,26,24,0.06)';
 const GREEN = '#1D9E75', TEAL = '#5DCAA5', AMBER = '#EF9F27',
-      BLUE = '#378ADD', CORAL = '#D85A30', INK3 = '#999990';
+      BLUE  = '#378ADD', CORAL = '#D85A30';
 
-/* ── 1. TREN KONSUMSI vs EMISI ── */
+/* ── 1. Tren Konsumsi vs Emisi ── */
 new Chart(document.getElementById('chartTrend'), {
   type: 'line',
   data: {
@@ -766,20 +793,19 @@ new Chart(document.getElementById('chartTrend'), {
   },
   options: {
     responsive: true, maintainAspectRatio: false,
-    plugins: { legend: { display: true, position: 'bottom',
-      labels: { boxWidth: 12, padding: 14, font: { size: 11 } } } },
+    plugins: {
+      legend: { display: true, position: 'bottom', labels: { boxWidth: 12, padding: 14, font: { size: 11 } } },
+      datalabels: { display: false }
+    },
     scales: {
-      x: { grid: { color: gridColor }, border: { display: false } },
-      y: { grid: { color: gridColor }, border: { display: false },
-           title: { display: true, text: 'TWh', font: { size: 10 } } },
-      y1: { position: 'right', grid: { display: false },
-            border: { display: false },
-            title: { display: true, text: 'Juta ton CO₂', font: { size: 10 } } }
+      x:  { grid: { color: gridColor }, border: { display: false } },
+      y:  { grid: { color: gridColor }, border: { display: false }, title: { display: true, text: 'TWh', font: { size: 10 } } },
+      y1: { position: 'right', grid: { display: false }, border: { display: false }, title: { display: true, text: 'Juta ton CO₂', font: { size: 10 } } }
     }
   }
 });
 
-/* ── 2. DISTRIBUSI SEKTOR ── */
+/* ── 2. Distribusi Sektor ── */
 new Chart(document.getElementById('chartSector'), {
   type: 'doughnut',
   data: {
@@ -794,18 +820,17 @@ new Chart(document.getElementById('chartSector'), {
     responsive: true, maintainAspectRatio: false,
     cutout: '62%',
     plugins: {
-      legend: { display: true, position: 'right',
-        labels: { boxWidth: 10, padding: 10, font: { size: 11 } } },
+      legend: { display: true, position: 'right', labels: { boxWidth: 10, padding: 10, font: { size: 11 } } },
       datalabels: {
+        display: true,
         color: '#fff', font: { size: 11, weight: '500' },
-        formatter: v => v > 8 ? v + '%' : ''
+        formatter: function(v) { return v > 8 ? v + '%' : ''; }
       }
     }
-  },
-  plugins: [ChartDataLabels]
+  }
 });
 
-/* ── 3. PROYEKSI REDUKSI ── */
+/* ── 3. Proyeksi Reduksi ── */
 new Chart(document.getElementById('chartProjection'), {
   type: 'bar',
   data: {
@@ -814,30 +839,29 @@ new Chart(document.getElementById('chartProjection'), {
       {
         label: 'Baseline (tanpa aksi)',
         data: [18.4, 19.2, 20.1, 21.0, 22.0],
-        backgroundColor: 'rgba(215,90,48,0.2)',
-        borderColor: CORAL, borderWidth: 1.5
+        backgroundColor: 'rgba(215,90,48,0.2)', borderColor: CORAL, borderWidth: 1.5
       },
       {
         label: 'Dengan aksi nyata',
         data: [15.3, 14.8, 13.9, 12.5, 11.2],
-        backgroundColor: 'rgba(29,158,117,0.25)',
-        borderColor: GREEN, borderWidth: 1.5
+        backgroundColor: 'rgba(29,158,117,0.25)', borderColor: GREEN, borderWidth: 1.5
       }
     ]
   },
   options: {
     responsive: true, maintainAspectRatio: false,
-    plugins: { legend: { display: true, position: 'bottom',
-      labels: { boxWidth: 10, padding: 12, font: { size: 11 } } } },
+    plugins: {
+      legend: { display: true, position: 'bottom', labels: { boxWidth: 10, padding: 12, font: { size: 11 } } },
+      datalabels: { display: false }
+    },
     scales: {
       x: { grid: { display: false }, border: { display: false } },
-      y: { grid: { color: gridColor }, border: { display: false },
-           title: { display: true, text: 'Ton CO₂e', font: { size: 10 } } }
+      y: { grid: { color: gridColor }, border: { display: false }, title: { display: true, text: 'Ton CO₂e', font: { size: 10 } } }
     }
   }
 });
 
-/* ── 4. FAKTOR EMISI vs EBT ── */
+/* ── 4. Faktor Emisi vs EBT ── */
 new Chart(document.getElementById('chartEBT'), {
   type: 'bar',
   data: {
@@ -857,8 +881,10 @@ new Chart(document.getElementById('chartEBT'), {
   },
   options: {
     responsive: true, maintainAspectRatio: false,
-    plugins: { legend: { display: true, position: 'bottom',
-      labels: { boxWidth: 10, padding: 10, font: { size: 11 } } } },
+    plugins: {
+      legend: { display: true, position: 'bottom', labels: { boxWidth: 10, padding: 10, font: { size: 11 } } },
+      datalabels: { display: false }
+    },
     scales: {
       x: { grid: { display: false }, border: { display: false } },
       y: { grid: { color: gridColor }, border: { display: false } }
@@ -866,7 +892,7 @@ new Chart(document.getElementById('chartEBT'), {
   }
 });
 
-/* ── 5. TAGIHAN LISTRIK (SURVEI) ── */
+/* ── 5. Tagihan Listrik (Survei) ── */
 new Chart(document.getElementById('chartTagihan'), {
   type: 'bar',
   data: {
@@ -879,17 +905,22 @@ new Chart(document.getElementById('chartTagihan'), {
   },
   options: {
     responsive: true, maintainAspectRatio: false,
-    plugins: { datalabels: { color: '#fff', font: { size: 11, weight: '500' },
-      formatter: v => v + '%', anchor: 'end', align: 'start' } },
+    plugins: {
+      datalabels: {
+        display: true,
+        color: '#fff', font: { size: 11, weight: '500' },
+        formatter: function(v) { return v + '%'; },
+        anchor: 'end', align: 'start'
+      }
+    },
     scales: {
       x: { grid: { display: false }, border: { display: false } },
       y: { display: false }
     }
-  },
-  plugins: [ChartDataLabels]
+  }
 });
 
-/* ── 6. LITERASI KARBON (SURVEI) ── */
+/* ── 6. Literasi Karbon (Survei) ── */
 new Chart(document.getElementById('chartLiterasi'), {
   type: 'doughnut',
   data: {
@@ -904,37 +935,72 @@ new Chart(document.getElementById('chartLiterasi'), {
     responsive: true, maintainAspectRatio: false,
     cutout: '55%',
     plugins: {
-      legend: { display: true, position: 'bottom',
-        labels: { boxWidth: 10, padding: 10, font: { size: 11 } } },
+      legend: { display: true, position: 'bottom', labels: { boxWidth: 10, padding: 10, font: { size: 11 } } },
       datalabels: {
+        display: true,
         color: '#fff', font: { size: 12, weight: '500' },
-        formatter: v => v + '%'
+        formatter: function(v) { return v + '%'; }
       }
     }
-  },
-  plugins: [ChartDataLabels]
+  }
 });
 
-/* ── FETCH LIVE DATA dari Google Sheets (opsional) ── */
+/* ── FIX: Fetch live data dengan timeout dan feedback status ── */
+function updateUI(n) {
+  var reduksiPerRumah = RATA_KWH_BULAN * 12 * FAKTOR_EMISI * PERSEN_EFISIENSI;
+  var co2 = ((n * reduksiPerRumah) / 1000).toFixed(1);
+
+  document.getElementById('surveyN').textContent = n;
+  document.getElementById('heroRespondents').innerHTML = n + '<span> resp.</span>';
+  document.getElementById('m3').textContent = n;
+  document.getElementById('heroCO2').innerHTML = co2 + '<span> ton</span>';
+  document.getElementById('m1').textContent = co2;
+}
+
 async function fetchLiveData() {
   if (!SHEET_CSV_URL) return;
+
+  var statusEl = document.getElementById('liveStatus');
+  statusEl.textContent = '⏳ Memuat data terbaru dari Google Sheets…';
+  statusEl.className = 'live-status';
+
+  /* FIX: gunakan AbortController untuk timeout */
+  var controller = new AbortController();
+  var timer = setTimeout(function() { controller.abort(); }, FETCH_TIMEOUT_MS);
+
   try {
-    const res = await fetch(SHEET_CSV_URL);
-    const text = await res.text();
-    const rows = text.trim().split('\n').slice(1); // skip header
-    const n = rows.length;
-    document.getElementById('surveyN').textContent = n;
-    document.getElementById('heroRespondents').innerHTML = n + '<span> resp.</span>';
-    document.getElementById('m3').textContent = n;
-    // Hitung ulang proyeksi CO2 berdasarkan n responden
-    const co2 = (n * 275 / 1000).toFixed(1);
-    document.getElementById('heroCO2').innerHTML = co2 + '<span> ton</span>';
-    document.getElementById('m1').textContent = co2;
-  } catch(e) {
-    console.log('Live data tidak tersedia, menggunakan data dummy.');
+    var res = await fetch(SHEET_CSV_URL, { signal: controller.signal });
+    clearTimeout(timer);
+
+    if (!res.ok) {
+      throw new Error('HTTP ' + res.status);
+    }
+
+    var text = await res.text();
+    var rows = text.trim().split('\n').slice(1).filter(function(r) { return r.trim() !== ''; });
+    var n = rows.length;
+
+    updateUI(n);
+    statusEl.textContent = '✓ Data berhasil dimuat — ' + n + ' responden (' + new Date().toLocaleTimeString('id-ID') + ')';
+    statusEl.className = 'live-status success';
+
+  } catch (err) {
+    clearTimeout(timer);
+    console.error('fetchLiveData error:', err);
+
+    if (err.name === 'AbortError') {
+      statusEl.textContent = '⚠ Koneksi ke Google Sheets habis waktu. Menampilkan data statis.';
+    } else {
+      statusEl.textContent = '⚠ Gagal memuat data live (' + err.message + '). Pastikan sheet sudah dipublish ke web sebagai CSV.';
+    }
+    statusEl.className = 'live-status error';
   }
 }
+
+/* ── Jalankan saat halaman dimuat ── */
 fetchLiveData();
+/* FIX: animateBars saat load awal karena tab Survey mungkin aktif via hash */
+animateBars();
 </script>
 </body>
 </html>
