@@ -637,17 +637,17 @@
           <span>Faktor emisi PLN (2023)</span><strong>0,87 kg CO₂/kWh</strong>
         </div>
         <div style="display:grid; grid-template-columns:1fr auto; gap:8px; padding:8px 0; border-bottom:1px solid var(--border2);">
-          <span>Emisi baseline per rumah tangga/tahun</span><strong>1.618 kg CO₂e</strong>
+          <span>Emisi baseline per rumah tangga/tahun</span><strong id="sdgBaseline">1.618 kg CO₂e</strong>
         </div>
         <div style="display:grid; grid-template-columns:1fr auto; gap:8px; padding:8px 0; border-bottom:1px solid var(--border2);">
           <span>Potensi efisiensi (dari model data)</span><strong>17%</strong>
         </div>
         <div style="display:grid; grid-template-columns:1fr auto; gap:8px; padding:8px 0; border-bottom:1px solid var(--border2);">
-          <span>Reduksi per rumah tangga/tahun</span><strong>275 kg CO₂e</strong>
+          <span>Reduksi per rumah tangga/tahun</span><strong id="sdgReduksiPerRumah">275 kg CO₂e</strong>
         </div>
         <div style="display:grid; grid-template-columns:1fr auto; gap:8px; padding:10px; background:var(--green-light); border-radius:var(--radius-sm); margin-top:8px;">
-          <span style="color:var(--green); font-weight:500;">Total reduksi (247 rumah tangga)</span>
-          <strong style="color:var(--green);">≈ 67.925 kg = 18,4 ton CO₂e/tahun</strong>
+          <span style="color:var(--green); font-weight:500;">Total reduksi (<span id="sdgN">247</span> rumah tangga)</span>
+          <strong id="sdgTotalKg" style="color:var(--green);">≈ 67.925 kg = 18,4 ton CO₂e/tahun</strong>
         </div>
       </div>
     </div>
@@ -830,20 +830,33 @@ new Chart(document.getElementById('chartSector'), {
   }
 });
 
-/* ── 3. Proyeksi Reduksi ── */
-new Chart(document.getElementById('chartProjection'), {
+/* ── 3. Proyeksi Reduksi — dibuat sebagai variabel agar bisa diupdate ── */
+function hitungProyeksi(co2Base) {
+  /* Baseline: naik ~4% per tahun tanpa aksi */
+  var baseline = [0,1,2,3,4].map(function(i) {
+    return parseFloat((co2Base * Math.pow(1.04, i)).toFixed(1));
+  });
+  /* Dengan aksi: turun ~8% per tahun dari baseline */
+  var aksi = baseline.map(function(v, i) {
+    return parseFloat((v * Math.pow(0.92, i + 1)).toFixed(1));
+  });
+  return { baseline: baseline, aksi: aksi };
+}
+
+var proyeksiAwal = hitungProyeksi(1.9); /* default sebelum fetch */
+var chartProjection = new Chart(document.getElementById('chartProjection'), {
   type: 'bar',
   data: {
     labels: ['2024','2025','2026','2027','2028'],
     datasets: [
       {
         label: 'Baseline (tanpa aksi)',
-        data: [18.4, 19.2, 20.1, 21.0, 22.0],
+        data: proyeksiAwal.baseline,
         backgroundColor: 'rgba(215,90,48,0.2)', borderColor: CORAL, borderWidth: 1.5
       },
       {
         label: 'Dengan aksi nyata',
-        data: [15.3, 14.8, 13.9, 12.5, 11.2],
+        data: proyeksiAwal.aksi,
         backgroundColor: 'rgba(29,158,117,0.25)', borderColor: GREEN, borderWidth: 1.5
       }
     ]
@@ -945,16 +958,33 @@ new Chart(document.getElementById('chartLiterasi'), {
   }
 });
 
-/* ── FIX: Fetch live data dengan timeout dan feedback status ── */
+/* ── Update semua UI dan chart yang bergantung pada jumlah responden ── */
 function updateUI(n) {
   var reduksiPerRumah = RATA_KWH_BULAN * 12 * FAKTOR_EMISI * PERSEN_EFISIENSI;
-  var co2 = ((n * reduksiPerRumah) / 1000).toFixed(1);
+  var co2Total = (n * reduksiPerRumah) / 1000;
+  var co2Str = co2Total.toFixed(1);
 
+  /* Hero & metric cards */
   document.getElementById('surveyN').textContent = n;
   document.getElementById('heroRespondents').innerHTML = n + '<span> resp.</span>';
   document.getElementById('m3').textContent = n;
-  document.getElementById('heroCO2').innerHTML = co2 + '<span> ton</span>';
-  document.getElementById('m1').textContent = co2;
+  document.getElementById('heroCO2').innerHTML = co2Str + '<span> ton</span>';
+  document.getElementById('m1').textContent = co2Str;
+
+  /* Update chart proyeksi berdasarkan co2 aktual */
+  var proj = hitungProyeksi(co2Total);
+  chartProjection.data.datasets[0].data = proj.baseline;
+  chartProjection.data.datasets[1].data = proj.aksi;
+  chartProjection.update();
+
+  /* Update kalkulasi di tab SDG */
+  var totalKg = Math.round(n * reduksiPerRumah);
+  var reduksiPerRumahKg = Math.round(reduksiPerRumah);
+  var baselinePerRumah = Math.round(RATA_KWH_BULAN * 12 * FAKTOR_EMISI);
+  document.getElementById('sdgN').textContent = n;
+  document.getElementById('sdgReduksiPerRumah').textContent = reduksiPerRumahKg.toLocaleString('id-ID') + ' kg CO\u2082e';
+  document.getElementById('sdgTotalKg').textContent = totalKg.toLocaleString('id-ID') + ' kg = ' + co2Str + ' ton CO\u2082e/tahun';
+  document.getElementById('sdgBaseline').textContent = baselinePerRumah.toLocaleString('id-ID') + ' kg CO\u2082e';
 }
 
 async function fetchLiveData() {
