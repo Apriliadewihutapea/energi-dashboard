@@ -976,21 +976,34 @@ function ada(teks, kata) {
   return teks.toLowerCase().indexOf(kata.toLowerCase()) !== -1;
 }
 
-/* ── Parse CSV menjadi array of objects ── */
+/* ── Parse TSV/CSV — Google Sheets export pakai TAB sebagai pemisah ── */
 function parseCSV(text) {
   var lines = text.trim().split('\n');
-  var headers = lines[0].split(',').map(function(h) { return h.replace(/"/g,'').trim(); });
-  return lines.slice(1).filter(function(l) { return l.trim() !== ''; }).map(function(line) {
+  if (lines.length === 0) return [];
+
+  /* Deteksi pemisah: tab atau koma */
+  var sep = lines[0].indexOf('\t') !== -1 ? '\t' : ',';
+
+  function splitBaris(line) {
+    if (sep === '\t') {
+      return line.split('\t').map(function(v) { return v.replace(/^"|"$/g,'').trim(); });
+    }
     var cols = [], cur = '', inQ = false;
     for (var i = 0; i < line.length; i++) {
       var c = line[i];
       if (c === '"') { inQ = !inQ; }
-      else if (c === ',' && !inQ) { cols.push(cur.trim()); cur = ''; }
+      else if (c === ',' && !inQ) { cols.push(cur.replace(/"/g,'').trim()); cur = ''; }
       else { cur += c; }
     }
-    cols.push(cur.trim());
+    cols.push(cur.replace(/"/g,'').trim());
+    return cols;
+  }
+
+  var headers = splitBaris(lines[0]);
+  return lines.slice(1).filter(function(l) { return l.trim() !== ''; }).map(function(line) {
+    var cols = splitBaris(line);
     var obj = {};
-    headers.forEach(function(h, i) { obj[h] = (cols[i] || '').replace(/"/g,'').trim(); });
+    headers.forEach(function(h, i) { obj[h] = (cols[i] || '').trim(); });
     return obj;
   });
 }
