@@ -4,321 +4,300 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EnergiData — Dashboard Transisi Energi Sobat Bumi 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
 <style>
-  :root {
-    --bg: #F4F2EC;
-    --surface: #FAFAF7;
-    --surface2: #EEECEA;
-    --ink: #1A1A18;
-    --ink2: #555550;
-    --ink3: #999990;
-    --green: #0F6E56;
-    --green-light: #E1F5EE;
-    --green-mid: #1D9E75;
-    --teal: #5DCAA5;
-    --amber: #EF9F27;
-    --amber-light: #FAEEDA;
-    --blue: #185FA5;
-    --blue-light: #E6F1FB;
-    --coral: #D85A30;
-    --coral-light: #FAECE7;
-    --border: rgba(26,26,24,0.1);
-    --border2: rgba(26,26,24,0.06);
-    --radius: 12px;
-    --radius-sm: 8px;
-  }
+:root {
+  --bg: #F4F2EC;
+  --surface: #FAFAF7;
+  --surface2: #EEECEA;
+  --ink: #1A1A18;
+  --ink2: #555550;
+  --ink3: #999990;
+  --green: #0F6E56;
+  --green-light: #E1F5EE;
+  --green-mid: #1D9E75;
+  --teal: #5DCAA5;
+  --amber: #EF9F27;
+  --amber-light: #FAEEDA;
+  --blue: #185FA5;
+  --blue-light: #E6F1FB;
+  --coral: #D85A30;
+  --coral-light: #FAECE7;
+  --border: rgba(26,26,24,0.1);
+  --border2: rgba(26,26,24,0.06);
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* NAV */
+header {
+  background: var(--ink);
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  position: sticky; top: 0; z-index: 100;
+}
+.logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700; font-size: 17px; color: #fff;
+  display: flex; align-items: center; gap: 8px;
+}
+.logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); }
+.nav-links { display: flex; gap: 4px; }
+.nav-link {
+  color: rgba(255,255,255,0.5); font-size: 13px; padding: 6px 12px;
+  border-radius: var(--radius-sm); cursor: pointer; transition: all 0.2s;
+  border: none; background: none; font-family: 'DM Sans', sans-serif;
+}
+.nav-link:hover { color: rgba(255,255,255,0.9); background: rgba(255,255,255,0.08); }
+.nav-link.active { color: #fff; background: rgba(255,255,255,0.12); }
+.badge-live {
+  font-size: 10px; padding: 2px 7px;
+  background: var(--green-mid); color: #fff;
+  border-radius: 20px; font-weight: 500;
+}
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--ink);
-    font-size: 15px;
-    line-height: 1.6;
-    min-height: 100vh;
-  }
+/* HERO */
+.hero {
+  background: var(--ink);
+  padding: 3rem 2rem 2.5rem;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; top: -60px; right: -80px;
+  width: 400px; height: 400px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(29,158,117,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-label {
+  font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--teal); font-weight: 500; margin-bottom: 10px;
+}
+.hero-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(22px, 4vw, 34px);
+  font-weight: 700; color: #fff; line-height: 1.2;
+  max-width: 560px; margin-bottom: 8px;
+}
+.hero-sub {
+  font-size: 14px; color: rgba(255,255,255,0.5); max-width: 520px;
+}
+.hero-meta { display: flex; gap: 2rem; margin-top: 2rem; flex-wrap: wrap; }
+.hero-stat-val {
+  font-family: 'Syne', sans-serif;
+  font-size: 28px; font-weight: 700; color: #fff; line-height: 1;
+}
+.hero-stat-val span { font-size: 16px; color: var(--teal); }
+.hero-stat-label { font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 3px; }
 
-  /* NAV */
-  header {
-    background: var(--ink);
-    padding: 0 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 56px;
-    position: sticky; top: 0; z-index: 100;
-  }
-  .logo {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 17px;
-    color: #fff;
-    display: flex; align-items: center; gap: 8px;
-  }
-  .logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); }
-  .nav-links { display: flex; gap: 4px; }
-  .nav-link {
-    color: rgba(255,255,255,0.5);
-    font-size: 13px; padding: 6px 12px;
-    border-radius: var(--radius-sm);
-    cursor: pointer; transition: all 0.2s;
-    border: none; background: none;
-    font-family: 'DM Sans', sans-serif;
-  }
-  .nav-link:hover { color: rgba(255,255,255,0.9); background: rgba(255,255,255,0.08); }
-  .nav-link.active { color: #fff; background: rgba(255,255,255,0.12); }
-  .badge-live {
-    font-size: 10px; padding: 2px 7px;
-    background: var(--green-mid); color: #fff;
-    border-radius: 20px; font-weight: 500;
-  }
+/* MAIN */
+.main { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ink3); margin-bottom: 1rem; margin-top: 2.5rem;
+}
 
-  /* HERO */
-  .hero {
-    background: var(--ink);
-    padding: 3rem 2rem 2.5rem;
-    position: relative; overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute; top: -60px; right: -80px;
-    width: 400px; height: 400px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(29,158,117,0.15) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .hero-label {
-    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--teal); font-weight: 500; margin-bottom: 10px;
-  }
-  .hero-title {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(22px, 4vw, 34px);
-    font-weight: 700; color: #fff;
-    line-height: 1.2; max-width: 560px; margin-bottom: 8px;
-  }
-  .hero-sub {
-    font-size: 14px; color: rgba(255,255,255,0.5);
-    max-width: 520px;
-  }
-  .hero-meta {
-    display: flex; gap: 2rem; margin-top: 2rem; flex-wrap: wrap;
-  }
-  .hero-stat-val {
-    font-family: 'Syne', sans-serif;
-    font-size: 28px; font-weight: 700; color: #fff;
-    line-height: 1;
-  }
-  .hero-stat-val span { font-size: 16px; color: var(--teal); }
-  .hero-stat-label { font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 3px; }
+/* METRIC CARDS */
+.metric-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px; margin-bottom: 2rem;
+}
+.metric-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.25rem 1.5rem;
+  position: relative; overflow: hidden; transition: transform 0.2s;
+}
+.metric-card:hover { transform: translateY(-2px); }
+.metric-card::after {
+  content: ''; position: absolute; bottom: 0; left: 0;
+  width: 100%; height: 3px;
+}
+.metric-card[data-color="green"]::after { background: var(--green-mid); }
+.metric-card[data-color="amber"]::after { background: var(--amber); }
+.metric-card[data-color="blue"]::after { background: var(--blue); }
+.metric-card[data-color="coral"]::after { background: var(--coral); }
+.metric-icon { font-size: 20px; margin-bottom: 10px; }
+.metric-val {
+  font-family: 'Syne', sans-serif;
+  font-size: 26px; font-weight: 700; color: var(--ink); line-height: 1;
+}
+.metric-unit { font-size: 13px; color: var(--ink3); margin-left: 2px; }
+.metric-label { font-size: 12px; color: var(--ink3); margin-top: 4px; }
+.metric-sdg {
+  position: absolute; top: 12px; right: 14px;
+  font-size: 10px; padding: 2px 7px;
+  background: var(--surface2); color: var(--ink3); border-radius: 20px;
+}
 
-  /* MAIN LAYOUT */
-  .main { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+/* CHART CARDS */
+.chart-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.chart-grid-3 { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 16px; }
+@media (max-width: 700px) {
+  .chart-grid-2, .chart-grid-3 { grid-template-columns: 1fr; }
+}
+.chart-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.25rem 1.5rem;
+}
+.chart-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 1rem;
+}
+.chart-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px; font-weight: 600; color: var(--ink);
+}
+.chart-sub { font-size: 12px; color: var(--ink3); margin-top: 2px; }
+.chart-badge {
+  font-size: 10px; padding: 3px 8px;
+  border-radius: 20px; font-weight: 500; white-space: nowrap; flex-shrink: 0;
+}
+.badge-sdg7 { background: var(--amber-light); color: #854F0B; }
+.badge-sdg13 { background: var(--green-light); color: #0F6E56; }
+.badge-sdg10 { background: var(--blue-light); color: #185FA5; }
 
-  .section-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 13px; font-weight: 600;
-    letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--ink3); margin-bottom: 1rem; margin-top: 2.5rem;
-  }
+/* SURVEY BARS */
+.survey-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px; margin-bottom: 16px;
+}
+.survey-item {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1rem 1.25rem;
+}
+.survey-q { font-size: 12px; color: var(--ink3); margin-bottom: 10px; font-weight: 500; }
+.survey-bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.survey-bar-label { font-size: 12px; min-width: 90px; color: var(--ink2); }
+.survey-bar-track {
+  flex: 1; height: 6px; background: var(--surface2);
+  border-radius: 3px; overflow: hidden;
+}
+.survey-bar-fill {
+  height: 100%; border-radius: 3px; background: var(--green-mid);
+  transition: width 0.8s ease;
+}
+.survey-bar-pct { font-size: 12px; font-weight: 500; color: var(--ink); min-width: 32px; text-align: right; }
 
-  /* METRIC CARDS */
-  .metric-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 12px; margin-bottom: 2rem;
-  }
-  .metric-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.25rem 1.5rem;
-    position: relative; overflow: hidden;
-    transition: transform 0.2s;
-  }
-  .metric-card:hover { transform: translateY(-2px); }
-  /* FIX: gunakan class khusus, bukan data attribute */
-  .metric-card::after {
-    content: '';
-    position: absolute; bottom: 0; left: 0;
-    width: 100%; height: 3px;
-  }
-  .metric-card.accent-green::after  { background: var(--green-mid); }
-  .metric-card.accent-amber::after  { background: var(--amber); }
-  .metric-card.accent-blue::after   { background: var(--blue); }
-  .metric-card.accent-coral::after  { background: var(--coral); }
-  .metric-icon { font-size: 20px; margin-bottom: 10px; }
-  .metric-val {
-    font-family: 'Syne', sans-serif;
-    font-size: 26px; font-weight: 700;
-    color: var(--ink); line-height: 1;
-  }
-  .metric-unit { font-size: 13px; color: var(--ink3); margin-left: 2px; }
-  .metric-label { font-size: 12px; color: var(--ink3); margin-top: 4px; }
-  .metric-sdg {
-    position: absolute; top: 12px; right: 14px;
-    font-size: 10px; padding: 2px 7px;
-    background: var(--surface2); color: var(--ink3);
-    border-radius: 20px;
-  }
+/* SDG CARDS */
+.sdg-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.sdg-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1rem 1.25rem;
+  display: flex; align-items: flex-start; gap: 12px;
+}
+.sdg-icon {
+  width: 40px; height: 40px; border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 13px; flex-shrink: 0;
+}
+.sdg-body { flex: 1; }
+.sdg-name { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+.sdg-desc { font-size: 11px; color: var(--ink3); margin-bottom: 8px; line-height: 1.4; }
+.sdg-progress-track { height: 5px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
+.sdg-progress-fill { height: 100%; border-radius: 3px; }
+.sdg-pct { font-size: 11px; color: var(--ink3); margin-top: 4px; }
 
-  /* CHART CARDS */
-  .chart-grid-2 {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
-    margin-bottom: 16px;
-  }
-  .chart-grid-3 {
-    display: grid; grid-template-columns: 2fr 1fr; gap: 16px;
-    margin-bottom: 16px;
-  }
-  @media (max-width: 700px) {
-    .chart-grid-2, .chart-grid-3 { grid-template-columns: 1fr; }
-  }
-  .chart-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.25rem 1.5rem;
-  }
-  .chart-header {
-    display: flex; justify-content: space-between; align-items: flex-start;
-    margin-bottom: 1rem;
-  }
-  .chart-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 14px; font-weight: 600; color: var(--ink);
-  }
-  .chart-sub { font-size: 12px; color: var(--ink3); margin-top: 2px; }
-  .chart-badge {
-    font-size: 10px; padding: 3px 8px;
-    border-radius: 20px; font-weight: 500; white-space: nowrap;
-    flex-shrink: 0;
-  }
-  .badge-sdg7  { background: var(--amber-light); color: #854F0B; }
-  .badge-sdg13 { background: var(--green-light); color: #0F6E56; }
-  .badge-sdg10 { background: var(--blue-light);  color: #185FA5; }
-  .chart-canvas-wrap { position: relative; }
+/* DATASOURCE BAR */
+.datasource-bar {
+  background: var(--surface2); border-radius: var(--radius-sm);
+  padding: 10px 14px; font-size: 12px; color: var(--ink3);
+  margin-bottom: 2rem; display: flex; align-items: center; gap: 8px;
+}
+.datasource-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--green-mid); flex-shrink: 0; animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-  /* SURVEY */
-  .survey-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 12px; margin-bottom: 16px;
-  }
-  .survey-item {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1rem 1.25rem;
-  }
-  .survey-q { font-size: 12px; color: var(--ink3); margin-bottom: 10px; }
-  .survey-bar-row {
-    display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
-  }
-  .survey-bar-label { font-size: 12px; min-width: 80px; color: var(--ink2); }
-  .survey-bar-track {
-    flex: 1; height: 6px; background: var(--surface2);
-    border-radius: 3px; overflow: hidden;
-  }
-  .survey-bar-fill {
-    height: 100%; border-radius: 3px;
-    background: var(--green-mid);
-    width: 0%;
-    transition: width 1s ease;
-  }
-  .survey-bar-pct { font-size: 12px; font-weight: 500; color: var(--ink); min-width: 32px; text-align: right; }
+/* TABS */
+.tab-bar { display: flex; gap: 6px; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.tab-btn {
+  padding: 7px 16px; font-size: 13px; border: 1px solid var(--border);
+  border-radius: 20px; cursor: pointer; background: var(--surface);
+  color: var(--ink2); font-family: 'DM Sans', sans-serif; transition: all 0.2s;
+}
+.tab-btn.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+.tab-btn:hover:not(.active) { background: var(--surface2); }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
 
-  /* SDG PROGRESS */
-  .sdg-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 12px;
-  }
-  .sdg-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1rem 1.25rem;
-    display: flex; align-items: flex-start; gap: 12px;
-  }
-  .sdg-icon {
-    width: 40px; height: 40px; border-radius: var(--radius-sm);
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Syne', sans-serif; font-weight: 700;
-    font-size: 13px; flex-shrink: 0;
-  }
-  .sdg-body { flex: 1; }
-  .sdg-name { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
-  .sdg-desc { font-size: 11px; color: var(--ink3); margin-bottom: 8px; line-height: 1.4; }
-  .sdg-progress-track {
-    height: 5px; background: var(--surface2); border-radius: 3px; overflow: hidden;
-  }
-  .sdg-progress-fill { height: 100%; border-radius: 3px; }
-  .sdg-pct { font-size: 11px; color: var(--ink3); margin-top: 4px; }
+/* QUOTES TABLE */
+.quotes-list {
+  display: flex; flex-direction: column; gap: 8px; margin-top: 1rem;
+}
+.quote-item {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 10px 14px;
+  font-size: 13px; color: var(--ink2); line-height: 1.5;
+  position: relative; padding-left: 20px;
+}
+.quote-item::before {
+  content: '"'; position: absolute; left: 8px; top: 8px;
+  color: var(--teal); font-size: 18px; font-family: Georgia, serif; line-height: 1;
+}
+.quote-tag {
+  display: inline-block; font-size: 10px; padding: 1px 6px;
+  background: var(--surface2); color: var(--ink3); border-radius: 10px; margin-left: 6px;
+}
 
-  /* FOOTER */
-  footer {
-    background: var(--ink); color: rgba(255,255,255,0.35);
-    font-size: 12px; text-align: center; padding: 1.5rem;
-    margin-top: 3rem;
-  }
-  footer strong { color: rgba(255,255,255,0.7); }
+/* LOADING */
+.loading-overlay {
+  display: flex; align-items: center; justify-content: center;
+  padding: 3rem; color: var(--ink3); font-size: 14px;
+  flex-direction: column; gap: 12px;
+}
+.spinner {
+  width: 28px; height: 28px; border: 2px solid var(--border);
+  border-top-color: var(--green-mid); border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
 
-  /* DATA SOURCE NOTE */
-  .datasource-bar {
-    background: var(--surface2);
-    border-radius: var(--radius-sm);
-    padding: 10px 14px;
-    font-size: 12px; color: var(--ink3);
-    margin-bottom: 2rem;
-    display: flex; align-items: center; gap: 8px;
-  }
-  .datasource-dot {
-    width: 7px; height: 7px; border-radius: 50%;
-    background: var(--green-mid); flex-shrink: 0;
-    animation: pulse 2s infinite;
-  }
-  @keyframes pulse {
-    0%,100% { opacity: 1; }
-    50% { opacity: 0.3; }
-  }
+/* FOOTER */
+footer {
+  background: var(--ink); color: rgba(255,255,255,0.35);
+  font-size: 12px; text-align: center; padding: 1.5rem; margin-top: 3rem;
+}
+footer strong { color: rgba(255,255,255,0.7); }
 
-  /* TABS */
-  .tab-bar { display: flex; gap: 6px; margin-bottom: 1.5rem; flex-wrap: wrap; }
-  .tab-btn {
-    padding: 7px 16px; font-size: 13px;
-    border: 1px solid var(--border);
-    border-radius: 20px; cursor: pointer;
-    background: var(--surface);
-    color: var(--ink2);
-    font-family: 'DM Sans', sans-serif;
-    transition: all 0.2s;
-  }
-  .tab-btn.active { background: var(--ink); color: #fff; border-color: var(--ink); }
-  .tab-btn:hover:not(.active) { background: var(--surface2); }
-  .tab-panel { display: none; }
-  .tab-panel.active { display: block; }
+/* ANIMATIONS */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+.fade-up { animation: fadeUp 0.5s ease both; }
 
-  /* ANIMATION */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .fade-up { animation: fadeUp 0.5s ease both; }
-  .fade-up:nth-child(1) { animation-delay: 0.05s; }
-  .fade-up:nth-child(2) { animation-delay: 0.10s; }
-  .fade-up:nth-child(3) { animation-delay: 0.15s; }
-  .fade-up:nth-child(4) { animation-delay: 0.20s; }
+/* REFRESH BTN */
+.refresh-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; padding: 5px 12px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 20px; cursor: pointer; color: var(--ink2);
+  font-family: 'DM Sans', sans-serif; transition: all 0.2s; margin-left: auto;
+}
+.refresh-btn:hover { background: var(--surface2); }
+.refresh-btn.spinning .icon { animation: spin 0.8s linear infinite; }
 
-  /* LIVE STATUS */
-  .live-status {
-    font-size: 12px; color: var(--ink3);
-    margin-bottom: 0.5rem;
-  }
-  .live-status.error { color: var(--coral); }
-  .live-status.success { color: var(--green); }
+/* STAT ROW */
+.stat-row {
+  display: grid; grid-template-columns: 1fr auto; gap: 8px;
+  padding: 8px 0; border-bottom: 1px solid var(--border2);
+  font-size: 13px; color: var(--ink2);
+}
+.stat-row:last-child { border-bottom: none; }
 </style>
 </head>
 <body>
@@ -329,12 +308,11 @@
     <div class="logo-dot"></div>
     EnergiData
   </div>
-  <!-- FIX: semua tombol meneruskan `this` secara eksplisit; tidak ada .call() -->
   <nav class="nav-links">
-    <button class="nav-link active" onclick="switchTab('overview', this)">Impact Overview</button>
-    <button class="nav-link" onclick="switchTab('survey', this)">Data Primer <span class="badge-live">LIVE</span></button>
-    <button class="nav-link" onclick="switchTab('sdg', this)">Capaian SDG</button>
-    <button class="nav-link" onclick="switchTab('roadmap', this)">Roadmap</button>
+    <button class="nav-link active" onclick="switchTab('overview')">Impact Overview</button>
+    <button class="nav-link" onclick="switchTab('survey')">Data Primer <span class="badge-live">LIVE</span></button>
+    <button class="nav-link" onclick="switchTab('sdg')">Capaian SDG</button>
+    <button class="nav-link" onclick="switchTab('roadmap')">Roadmap</button>
   </nav>
 </header>
 
@@ -345,16 +323,16 @@
   <p class="hero-sub">Dashboard ini menampilkan proyeksi dampak dan data lapangan dari aksi nyata analisis konsumsi energi rumah tangga urban di Indonesia.</p>
   <div class="hero-meta">
     <div class="hero-stat">
-      <div class="hero-stat-val" id="heroRespondents">247<span> resp.</span></div>
+      <div class="hero-stat-val"><span id="heroN">—</span><span> resp.</span></div>
       <div class="hero-stat-label">Total responden survei</div>
     </div>
     <div class="hero-stat">
-      <div class="hero-stat-val" id="heroCO2">18.4<span> ton</span></div>
+      <div class="hero-stat-val"><span id="heroCO2">—</span><span> ton</span></div>
       <div class="hero-stat-label">Proyeksi reduksi CO₂e/tahun</div>
     </div>
     <div class="hero-stat">
-      <div class="hero-stat-val" id="heroEff">17<span>%</span></div>
-      <div class="hero-stat-label">Potensi efisiensi energi</div>
+      <div class="hero-stat-val"><span id="heroWilling">—</span><span>%</span></div>
+      <div class="hero-stat-label">Bersedia hemat energi</div>
     </div>
     <div class="hero-stat">
       <div class="hero-stat-val">3<span> SDG</span></div>
@@ -374,31 +352,30 @@
     </div>
 
     <p class="section-title">Metrik Dampak Terukur</p>
-    <!-- FIX: ganti data-color dengan class accent-* -->
     <div class="metric-grid">
-      <div class="metric-card accent-green fade-up">
+      <div class="metric-card fade-up" data-color="green">
         <div class="metric-sdg">SDG 13</div>
         <div class="metric-icon">🌿</div>
-        <div class="metric-val"><span id="m1">18.4</span><span class="metric-unit">ton CO₂e</span></div>
+        <div class="metric-val"><span id="m1">—</span><span class="metric-unit">ton CO₂e</span></div>
         <div class="metric-label">Proyeksi reduksi emisi per tahun</div>
       </div>
-      <div class="metric-card accent-amber fade-up">
+      <div class="metric-card fade-up" data-color="amber">
         <div class="metric-sdg">SDG 7</div>
         <div class="metric-icon">⚡</div>
         <div class="metric-val"><span id="m2">17</span><span class="metric-unit">%</span></div>
         <div class="metric-label">Potensi efisiensi konsumsi listrik</div>
       </div>
-      <div class="metric-card accent-blue fade-up">
+      <div class="metric-card fade-up" data-color="blue">
         <div class="metric-sdg">SDG 10</div>
         <div class="metric-icon">👥</div>
-        <div class="metric-val"><span id="m3">247</span><span class="metric-unit">org</span></div>
+        <div class="metric-val"><span id="m3">—</span><span class="metric-unit">org</span></div>
         <div class="metric-label">Sasaran penerima manfaat</div>
       </div>
-      <div class="metric-card accent-coral fade-up">
-        <div class="metric-sdg">SDG 17</div>
-        <div class="metric-icon">🔄</div>
-        <div class="metric-val"><span id="m4">5</span><span class="metric-unit">kota</span></div>
-        <div class="metric-label">Potensi replikasi wilayah</div>
+      <div class="metric-card fade-up" data-color="coral">
+        <div class="metric-sdg">SDG 7</div>
+        <div class="metric-icon">💡</div>
+        <div class="metric-val"><span id="m4">—</span><span class="metric-unit">%</span></div>
+        <div class="metric-label">Pengguna lampu LED</div>
       </div>
     </div>
 
@@ -407,13 +384,11 @@
         <div class="chart-header">
           <div>
             <div class="chart-title">Tren Konsumsi Energi vs Emisi CO₂</div>
-            <div class="chart-sub">Data sekunder: PLN &amp; KLHK 2019–2023</div>
+            <div class="chart-sub">Data sekunder: PLN & KLHK 2019–2023</div>
           </div>
           <span class="chart-badge badge-sdg13">SDG 13</span>
         </div>
-        <div class="chart-canvas-wrap" style="height:220px">
-          <canvas id="chartTrend" role="img" aria-label="Grafik tren konsumsi energi vs emisi CO2 2019-2023"></canvas>
-        </div>
+        <div style="height:220px"><canvas id="chartTrend"></canvas></div>
       </div>
       <div class="chart-card fade-up">
         <div class="chart-header">
@@ -423,9 +398,7 @@
           </div>
           <span class="chart-badge badge-sdg7">SDG 7</span>
         </div>
-        <div class="chart-canvas-wrap" style="height:220px">
-          <canvas id="chartSector" role="img" aria-label="Diagram distribusi konsumsi energi per sektor"></canvas>
-        </div>
+        <div style="height:220px"><canvas id="chartSector"></canvas></div>
       </div>
     </div>
 
@@ -438,9 +411,7 @@
           </div>
           <span class="chart-badge badge-sdg13">SDG 13</span>
         </div>
-        <div class="chart-canvas-wrap" style="height:200px">
-          <canvas id="chartProjection" role="img" aria-label="Proyeksi reduksi emisi skenario aksi 2024-2028"></canvas>
-        </div>
+        <div style="height:200px"><canvas id="chartProjection"></canvas></div>
       </div>
       <div class="chart-card fade-up">
         <div class="chart-header">
@@ -450,139 +421,128 @@
           </div>
           <span class="chart-badge badge-sdg7">SDG 7</span>
         </div>
-        <div class="chart-canvas-wrap" style="height:200px">
-          <canvas id="chartEBT" role="img" aria-label="Grafik faktor emisi vs potensi EBT per provinsi"></canvas>
-        </div>
+        <div style="height:200px"><canvas id="chartEBT"></canvas></div>
       </div>
     </div>
   </div>
 
-  <!-- TAB: SURVEY -->
+  <!-- TAB: SURVEY (LIVE) -->
   <div class="tab-panel" id="tab-survey">
-    <div class="datasource-bar">
-      <div class="datasource-dot"></div>
-      Data primer — Google Form survei lapangan &nbsp;|&nbsp; Diperbarui otomatis via Google Sheets CSV &nbsp;|&nbsp; n = <strong id="surveyN">—</strong> responden
+    <div class="datasource-bar" style="justify-content:space-between; flex-wrap:wrap; gap:8px;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="datasource-dot"></div>
+        Data primer — Google Form survei lapangan &nbsp;|&nbsp; n = <strong id="surveyN" style="margin:0 4px;">—</strong> responden
+      </div>
+      <button class="refresh-btn" id="refreshBtn" onclick="refreshData()">
+        <span class="icon">↻</span> Perbarui data
+      </button>
     </div>
-    <p id="liveStatus" class="live-status"></p>
 
-    <p class="section-title">Distribusi Responden</p>
-    <div class="chart-grid-2">
-      <div class="chart-card">
-        <div class="chart-header">
-          <div>
-            <div class="chart-title">Tagihan Listrik Bulanan</div>
-            <div class="chart-sub" id="subTagihan">Memuat data…</div>
+    <div id="surveyLoading" class="loading-overlay">
+      <div class="spinner"></div>
+      <span>Memuat data survei…</span>
+    </div>
+    <div id="surveyContent" style="display:none;">
+
+      <p class="section-title">Distribusi Responden</p>
+      <div class="chart-grid-2">
+        <div class="chart-card">
+          <div class="chart-header">
+            <div>
+              <div class="chart-title">Tagihan Listrik Bulanan</div>
+              <div class="chart-sub" id="tagihanSub">—</div>
+            </div>
+            <span class="chart-badge badge-sdg7">SDG 7</span>
           </div>
-          <span class="chart-badge badge-sdg7">SDG 7</span>
+          <div style="height:200px"><canvas id="chartTagihan"></canvas></div>
         </div>
-        <div style="height:200px"><canvas id="chartTagihan" role="img" aria-label="Distribusi tagihan listrik bulanan responden"></canvas></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-header">
-          <div>
-            <div class="chart-title">Literasi Jejak Karbon</div>
-            <div class="chart-sub" id="subLiterasi">Memuat data…</div>
+        <div class="chart-card">
+          <div class="chart-header">
+            <div>
+              <div class="chart-title">Daya Listrik Terpasang</div>
+              <div class="chart-sub" id="dayaSub">—</div>
+            </div>
+            <span class="chart-badge badge-sdg7">SDG 7</span>
           </div>
-          <span class="chart-badge badge-sdg13">SDG 13</span>
-        </div>
-        <div style="height:200px"><canvas id="chartLiterasi" role="img" aria-label="Distribusi literasi jejak karbon responden"></canvas></div>
-      </div>
-    </div>
-
-    <p class="section-title">Perangkat &amp; Perilaku Energi</p>
-    <div class="survey-grid">
-
-      <!-- Perangkat elektronik (checkbox — % dari n responden) -->
-      <div class="survey-item">
-        <div class="survey-q">Perangkat elektronik paling sering digunakan</div>
-        <div class="survey-bar-row">
-          <div class="survey-bar-label">AC</div>
-          <div class="survey-bar-track"><div class="survey-bar-fill" id="bar-ac"></div></div>
-          <div class="survey-bar-pct" id="pct-ac">—</div>
-        </div>
-        <div class="survey-bar-row">
-          <div class="survey-bar-label">Kulkas</div>
-          <div class="survey-bar-track"><div class="survey-bar-fill" id="bar-kulkas"></div></div>
-          <div class="survey-bar-pct" id="pct-kulkas">—</div>
-        </div>
-        <div class="survey-bar-row">
-          <div class="survey-bar-label">Mesin cuci</div>
-          <div class="survey-bar-track"><div class="survey-bar-fill" id="bar-mesincuci"></div></div>
-          <div class="survey-bar-pct" id="pct-mesincuci">—</div>
-        </div>
-        <div class="survey-bar-row">
-          <div class="survey-bar-label">Water heater</div>
-          <div class="survey-bar-track"><div class="survey-bar-fill" id="bar-waterheater"></div></div>
-          <div class="survey-bar-pct" id="pct-waterheater">—</div>
-        </div>
-        <div class="survey-bar-row">
-          <div class="survey-bar-label">TV + set-top</div>
-          <div class="survey-bar-track"><div class="survey-bar-fill" id="bar-tv"></div></div>
-          <div class="survey-bar-pct" id="pct-tv">—</div>
-        </div>
-        <div class="survey-bar-row">
-          <div class="survey-bar-label">Laptop/komputer</div>
-          <div class="survey-bar-track"><div class="survey-bar-fill" id="bar-laptop"></div></div>
-          <div class="survey-bar-pct" id="pct-laptop">—</div>
+          <div style="height:200px"><canvas id="chartDaya"></canvas></div>
         </div>
       </div>
 
-      <!-- Kesediaan hemat energi -->
-      <div class="survey-item">
-        <div class="survey-q">Kesediaan mengubah kebiasaan hemat energi</div>
-        <div class="survey-bar-row">
-          <div class="survey-bar-label">Sangat bersedia</div>
-          <div class="survey-bar-track"><div class="survey-bar-fill" id="bar-k1" style="background:var(--green-mid)"></div></div>
-          <div class="survey-bar-pct" id="pct-k1">—</div>
+      <div class="chart-grid-2">
+        <div class="chart-card">
+          <div class="chart-header">
+            <div>
+              <div class="chart-title">Literasi Jejak Karbon</div>
+              <div class="chart-sub">% yang tahu cara hitung emisi rumah tangga</div>
+            </div>
+            <span class="chart-badge badge-sdg13">SDG 13</span>
+          </div>
+          <div style="height:200px"><canvas id="chartLiterasi"></canvas></div>
         </div>
-        <div class="survey-bar-row">
-          <div class="survey-bar-label">Bersedia</div>
-          <div class="survey-bar-track"><div class="survey-bar-fill" id="bar-k2" style="background:var(--teal)"></div></div>
-          <div class="survey-bar-pct" id="pct-k2">—</div>
-        </div>
-        <div class="survey-bar-row">
-          <div class="survey-bar-label">Masih ragu</div>
-          <div class="survey-bar-track"><div class="survey-bar-fill" id="bar-k3" style="background:var(--amber)"></div></div>
-          <div class="survey-bar-pct" id="pct-k3">—</div>
-        </div>
-        <div class="survey-bar-row">
-          <div class="survey-bar-label">Belum tertarik</div>
-          <div class="survey-bar-track"><div class="survey-bar-fill" id="bar-k4" style="background:var(--coral)"></div></div>
-          <div class="survey-bar-pct" id="pct-k4">—</div>
+        <div class="chart-card">
+          <div class="chart-header">
+            <div>
+              <div class="chart-title">Persepsi Pentingnya Isu Iklim</div>
+              <div class="chart-sub">Skala 1–5 (5 = sangat penting)</div>
+            </div>
+            <span class="chart-badge badge-sdg13">SDG 13</span>
+          </div>
+          <div style="height:200px"><canvas id="chartIklim"></canvas></div>
         </div>
       </div>
 
-      <!-- Sumber informasi energi -->
-      <div class="survey-item">
-        <div class="survey-q">Sumber informasi energi/lingkungan</div>
-        <div class="survey-bar-row">
-          <div class="survey-bar-label">Media sosial</div>
-          <div class="survey-bar-track"><div class="survey-bar-fill" id="bar-s1"></div></div>
-          <div class="survey-bar-pct" id="pct-s1">—</div>
+      <div class="chart-grid-2">
+        <div class="chart-card">
+          <div class="chart-header">
+            <div>
+              <div class="chart-title">Status Tempat Tinggal</div>
+              <div class="chart-sub">Distribusi jenis hunian</div>
+            </div>
+            <span class="chart-badge badge-sdg10">SDG 10</span>
+          </div>
+          <div style="height:200px"><canvas id="chartHunian"></canvas></div>
         </div>
-        <div class="survey-bar-row">
-          <div class="survey-bar-label">Berita online</div>
-          <div class="survey-bar-track"><div class="survey-bar-fill" id="bar-s2"></div></div>
-          <div class="survey-bar-pct" id="pct-s2">—</div>
-        </div>
-        <div class="survey-bar-row">
-          <div class="survey-bar-label">Keluarga/teman</div>
-          <div class="survey-bar-track"><div class="survey-bar-fill" id="bar-s3"></div></div>
-          <div class="survey-bar-pct" id="pct-s3">—</div>
-        </div>
-        <div class="survey-bar-row">
-          <div class="survey-bar-label">Kampus/sekolah</div>
-          <div class="survey-bar-track"><div class="survey-bar-fill" id="bar-s4"></div></div>
-          <div class="survey-bar-pct" id="pct-s4">—</div>
-        </div>
-        <div class="survey-bar-row">
-          <div class="survey-bar-label">Website gov</div>
-          <div class="survey-bar-track"><div class="survey-bar-fill" id="bar-s5"></div></div>
-          <div class="survey-bar-pct" id="pct-s5">—</div>
+        <div class="chart-card">
+          <div class="chart-header">
+            <div>
+              <div class="chart-title">Penggunaan Lampu LED</div>
+              <div class="chart-sub">Adopsi teknologi hemat energi</div>
+            </div>
+            <span class="chart-badge badge-sdg7">SDG 7</span>
+          </div>
+          <div style="height:200px"><canvas id="chartLED"></canvas></div>
         </div>
       </div>
 
-    </div>
+      <p class="section-title">Perangkat, Perilaku & Hambatan</p>
+      <div class="survey-grid">
+        <div class="survey-item">
+          <div class="survey-q">Perangkat elektronik yang paling sering digunakan</div>
+          <div id="barPerangkat"></div>
+        </div>
+        <div class="survey-item">
+          <div class="survey-q">Kesediaan mengubah kebiasaan hemat energi</div>
+          <div id="barKesediaan"></div>
+        </div>
+        <div class="survey-item">
+          <div class="survey-q">Hambatan terbesar dalam hemat energi</div>
+          <div id="barHambatan"></div>
+        </div>
+        <div class="survey-item">
+          <div class="survey-q">Sumber informasi energi yang dipercaya</div>
+          <div id="barSumber"></div>
+        </div>
+      </div>
+
+      <p class="section-title">Durasi Penggunaan AC per Hari</p>
+      <div class="chart-card" style="max-width:600px">
+        <div style="height:180px"><canvas id="chartAC"></canvas></div>
+      </div>
+
+      <p class="section-title">Masukan & Harapan Responden</p>
+      <div class="quotes-list" id="quotesList"></div>
+
+    </div><!-- end surveyContent -->
   </div>
 
   <!-- TAB: SDG -->
@@ -597,19 +557,19 @@
       <div class="sdg-card fade-up">
         <div class="sdg-icon" style="background:#FAEEDA; color:#854F0B;">SDG<br>7</div>
         <div class="sdg-body">
-          <div class="sdg-name">Energi Bersih &amp; Terjangkau</div>
-          <div class="sdg-desc">Peningkatan literasi konsumsi energi pada 247 rumah tangga urban mendorong efisiensi dan akses informasi EBT.</div>
-          <div class="sdg-progress-track"><div class="sdg-progress-fill" style="width:72%; background:var(--amber)"></div></div>
-          <div class="sdg-pct">72% capaian indikator literasi energi</div>
+          <div class="sdg-name">Energi Bersih & Terjangkau</div>
+          <div class="sdg-desc">Peningkatan literasi konsumsi energi pada rumah tangga urban mendorong efisiensi dan akses informasi EBT.</div>
+          <div class="sdg-progress-track"><div class="sdg-progress-fill" id="sdg7bar" style="width:0%; background:var(--amber)"></div></div>
+          <div class="sdg-pct" id="sdg7pct">— capaian indikator literasi energi</div>
         </div>
       </div>
       <div class="sdg-card fade-up">
         <div class="sdg-icon" style="background:#E1F5EE; color:#0F6E56;">SDG<br>13</div>
         <div class="sdg-body">
           <div class="sdg-name">Penanganan Perubahan Iklim</div>
-          <div class="sdg-desc">Reduksi proyeksi 18,4 ton CO₂e/tahun melalui perubahan perilaku berbasis data mendukung target NDC Indonesia.</div>
-          <div class="sdg-progress-track"><div class="sdg-progress-fill" style="width:58%; background:var(--green-mid)"></div></div>
-          <div class="sdg-pct">58% dari target reduksi pilot area</div>
+          <div class="sdg-desc">Reduksi proyeksi CO₂e/tahun melalui perubahan perilaku berbasis data mendukung target NDC Indonesia.</div>
+          <div class="sdg-progress-track"><div class="sdg-progress-fill" id="sdg13bar" style="width:0%; background:var(--green-mid)"></div></div>
+          <div class="sdg-pct" id="sdg13pct">— dari target reduksi pilot area</div>
         </div>
       </div>
       <div class="sdg-card fade-up">
@@ -617,8 +577,8 @@
         <div class="sdg-body">
           <div class="sdg-name">Berkurangnya Kesenjangan</div>
           <div class="sdg-desc">Distribusi informasi energi yang inklusif menjangkau kelompok rumah tangga berpenghasilan menengah-bawah.</div>
-          <div class="sdg-progress-track"><div class="sdg-progress-fill" style="width:65%; background:var(--blue)"></div></div>
-          <div class="sdg-pct">65% responden dari kelompok sasaran</div>
+          <div class="sdg-progress-track"><div class="sdg-progress-fill" id="sdg10bar" style="width:0%; background:var(--blue)"></div></div>
+          <div class="sdg-pct" id="sdg10pct">— responden dari kelompok sasaran</div>
         </div>
       </div>
       <div class="sdg-card fade-up">
@@ -641,24 +601,17 @@
         </div>
       </div>
       <div style="font-size:13px; color:var(--ink2); line-height:2;">
-        <div style="display:grid; grid-template-columns:1fr auto; gap:8px; padding:8px 0; border-bottom:1px solid var(--border2);">
-          <span>Rata-rata konsumsi rumah tangga/bulan</span><strong>155 kWh</strong>
-        </div>
-        <div style="display:grid; grid-template-columns:1fr auto; gap:8px; padding:8px 0; border-bottom:1px solid var(--border2);">
-          <span>Faktor emisi PLN (2023)</span><strong>0,87 kg CO₂/kWh</strong>
-        </div>
-        <div style="display:grid; grid-template-columns:1fr auto; gap:8px; padding:8px 0; border-bottom:1px solid var(--border2);">
-          <span>Emisi baseline per rumah tangga/tahun</span><strong id="sdgBaseline">1.618 kg CO₂e</strong>
-        </div>
-        <div style="display:grid; grid-template-columns:1fr auto; gap:8px; padding:8px 0; border-bottom:1px solid var(--border2);">
-          <span>Potensi efisiensi (dari model data)</span><strong>17%</strong>
-        </div>
-        <div style="display:grid; grid-template-columns:1fr auto; gap:8px; padding:8px 0; border-bottom:1px solid var(--border2);">
-          <span>Reduksi per rumah tangga/tahun</span><strong id="sdgReduksiPerRumah">275 kg CO₂e</strong>
+        <div class="stat-row"><span>Rata-rata konsumsi rumah tangga/bulan</span><strong>155 kWh</strong></div>
+        <div class="stat-row"><span>Faktor emisi PLN (2023)</span><strong>0,87 kg CO₂/kWh</strong></div>
+        <div class="stat-row"><span>Emisi baseline per rumah tangga/tahun</span><strong>1.618 kg CO₂e</strong></div>
+        <div class="stat-row"><span>Potensi efisiensi (dari model data)</span><strong>17%</strong></div>
+        <div class="stat-row"><span>Reduksi per rumah tangga/tahun</span><strong>275 kg CO₂e</strong></div>
+        <div class="stat-row">
+          <span>Jumlah responden (live)</span><strong id="calcN">—</strong>
         </div>
         <div style="display:grid; grid-template-columns:1fr auto; gap:8px; padding:10px; background:var(--green-light); border-radius:var(--radius-sm); margin-top:8px;">
-          <span style="color:var(--green); font-weight:500;">Total reduksi (<span id="sdgN">247</span> rumah tangga)</span>
-          <strong id="sdgTotalKg" style="color:var(--green);">≈ 67.925 kg = 18,4 ton CO₂e/tahun</strong>
+          <span style="color:var(--green); font-weight:500;">Total reduksi proyeksi</span>
+          <strong style="color:var(--green);" id="calcTotal">—</strong>
         </div>
       </div>
     </div>
@@ -666,7 +619,7 @@
 
   <!-- TAB: ROADMAP -->
   <div class="tab-panel" id="tab-roadmap">
-    <p class="section-title">Rencana Keberlanjutan &amp; Skalabilitas</p>
+    <p class="section-title">Rencana Keberlanjutan & Skalabilitas</p>
     <div style="display:flex; flex-direction:column; gap:16px;">
       <div class="chart-card fade-up">
         <div style="display:flex; gap:16px; align-items:flex-start;">
@@ -676,13 +629,13 @@
             <div style="width:8px; height:8px; border-radius:50%; background:var(--green-mid); margin-top:8px;"></div>
           </div>
           <div>
-            <div class="chart-title" style="margin-bottom:6px;">Pemodelan &amp; Pengumpulan Data</div>
+            <div class="chart-title" style="margin-bottom:6px;">Pemodelan & Pengumpulan Data</div>
             <div style="font-size:13px; color:var(--ink2); line-height:1.7;">
               Penyusunan model analisis data konsumsi energi rumah tangga urban. Survei Google Form kepada 250+ responden. Integrasi data sekunder dari BPS, PLN, ESDM. Validasi model dengan data lapangan.
             </div>
             <div style="margin-top:8px; display:flex; gap:6px; flex-wrap:wrap;">
               <span style="font-size:11px; padding:3px 8px; background:var(--green-light); color:var(--green); border-radius:20px;">✓ Selesai</span>
-              <span style="font-size:11px; padding:3px 8px; background:var(--surface2); color:var(--ink3); border-radius:20px;">247 responden</span>
+              <span id="badge-n" style="font-size:11px; padding:3px 8px; background:var(--surface2); color:var(--ink3); border-radius:20px;">— responden</span>
             </div>
           </div>
         </div>
@@ -695,7 +648,7 @@
             <div style="width:8px; height:8px; border-radius:50%; background:var(--amber); margin-top:8px;"></div>
           </div>
           <div>
-            <div class="chart-title" style="margin-bottom:6px;">Pilot Project &amp; Dashboard Publik</div>
+            <div class="chart-title" style="margin-bottom:6px;">Pilot Project & Dashboard Publik</div>
             <div style="font-size:13px; color:var(--ink2); line-height:1.7;">
               Peluncuran dashboard interaktif ini sebagai platform publik. Kolaborasi dengan komunitas mahasiswa peduli lingkungan di kampus. Uji coba intervensi perilaku berbasis data pada komunitas pilot. Dokumentasi metodologi untuk replikasi.
             </div>
@@ -714,7 +667,7 @@
             <div style="width:8px; height:8px; border-radius:50%; background:var(--blue); margin-top:8px;"></div>
           </div>
           <div>
-            <div class="chart-title" style="margin-bottom:6px;">Replikasi &amp; Integrasi Kebijakan</div>
+            <div class="chart-title" style="margin-bottom:6px;">Replikasi & Integrasi Kebijakan</div>
             <div style="font-size:13px; color:var(--ink2); line-height:1.7;">
               Adopsi model data oleh 5 universitas lain (SDG 17 — kemitraan). Integrasi dengan program efisiensi energi daerah. Publikasi open-source kerangka model untuk komunitas nasional. Target: 1.000+ rumah tangga teredukasi, reduksi 74 ton CO₂e/tahun.
             </div>
@@ -732,471 +685,521 @@
 
 <footer>
   <strong>EnergiData Dashboard</strong> &nbsp;·&nbsp; Aksi Nyata Beasiswa Sobat Bumi 2026 &nbsp;·&nbsp;
-  Data: BPS 2024 · PLN Statistics 2023 · KLHK GRK 2023 · Google Form Primer &nbsp;·&nbsp;
-  Dibuat dengan Chart.js · Hosted di GitHub Pages
+  Data: BPS 2024 · PLN Statistics 2023 · KLHK GRK 2023 · Google Form Primer (Live) &nbsp;·&nbsp;
+  Dibuat dengan Chart.js
 </footer>
 
 <script>
-/* ══════════════════════════════════════════
-   Ganti URL ini dengan CSV publish dari Google Sheets Anda.
-   Cara: Google Sheets → File → Share → Publish to web → CSV
-   ══════════════════════════════════════════ */
+/* ═══════════════════════════════════════════
+   GANTI URL INI dengan CSV publish Google Sheets Anda
+   Cara: Google Sheets → File → Bagikan → Publikasikan ke web → CSV
+   ═══════════════════════════════════════════ */
 const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQZpujxCfEd-0K8jDi2Vqc1FBty5rZ6hG6rn6E5MZOKX0bWkkF94idvL5UF3DOLVyvcBjbX8lGoExmG/pub?gid=1819131276&single=true&output=csv';
 
-/* Konstanta kalkulasi emisi — ubah jika asumsi berubah */
-const RATA_KWH_BULAN  = 155;
-const FAKTOR_EMISI    = 0.87;
-const PERSEN_EFISIENSI = 0.17;
-const FETCH_TIMEOUT_MS = 8000;
+/* ── KOLOM INDEX (0-based, sesuai urutan header GForm) ──
+   0  Timestamp
+   1  Nama
+   2  Provinsi domisili
+   3  Status tempat tinggal
+   4  Tagihan listrik bulanan
+   5  Daya listrik terpasang
+   6  Perangkat elektronik
+   7  Jam AC menyala
+   8  Matikan lampu (skala)
+   9  Lampu LED
+   10 Tahu hitung jejak karbon
+   11 Sumber informasi
+   12 Pentingnya isu iklim (1-5)
+   13 Kesediaan hemat energi
+   14 Hambatan hemat energi
+   15 Masukan/harapan
+*/
 
-/* ── FIX: switchTab menerima elemen tombol secara eksplisit ── */
-function switchTab(id, btn) {
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
-  document.getElementById('tab-' + id).classList.add('active');
-  btn.classList.add('active');
-  animateBars();
-}
+/* ── CHART INSTANCES (untuk update) ── */
+let chartInstances = {};
 
-/* ── Animasi bar survei ── */
-function animateBars() {
-  setTimeout(function() {
-    document.querySelectorAll('.survey-bar-fill').forEach(function(bar) {
-      bar.style.width = bar.dataset.target + '%';
-    });
-  }, 100);
-}
-
-/* ── FIX: Daftarkan ChartDataLabels secara eksplisit ── */
-Chart.register(ChartDataLabels);
-
-/* ── Konfigurasi global Chart.js ── */
-Chart.defaults.color = '#99999a';
+/* ── CHART DEFAULTS ── */
+Chart.defaults.color = '#999990';
 Chart.defaults.font.family = "'DM Sans', sans-serif";
 Chart.defaults.font.size = 12;
 Chart.defaults.plugins.legend.display = false;
-/* FIX: nonaktifkan datalabels secara global; aktifkan hanya di chart yang butuh */
-Chart.defaults.plugins.datalabels.display = false;
-
 const gridColor = 'rgba(26,26,24,0.06)';
 const GREEN = '#1D9E75', TEAL = '#5DCAA5', AMBER = '#EF9F27',
-      BLUE  = '#378ADD', CORAL = '#D85A30';
+      BLUE = '#378ADD', CORAL = '#D85A30';
+const PALETTE = [GREEN, AMBER, BLUE, CORAL, TEAL, '#B4B2A9', '#9B59B6', '#E74C3C'];
 
-/* ── 1. Tren Konsumsi vs Emisi ── */
-new Chart(document.getElementById('chartTrend'), {
-  type: 'line',
-  data: {
-    labels: ['2019','2020','2021','2022','2023'],
-    datasets: [
-      {
-        label: 'Konsumsi (TWh)',
-        data: [263, 248, 254, 271, 285],
-        borderColor: GREEN, tension: 0.4, pointRadius: 4,
-        pointBackgroundColor: GREEN, fill: false, yAxisID: 'y'
-      },
-      {
-        label: 'Emisi CO₂ (juta ton)',
-        data: [229, 216, 221, 236, 248],
-        borderColor: AMBER, tension: 0.4, pointRadius: 4,
-        pointBackgroundColor: AMBER, borderDash: [5,3], fill: false, yAxisID: 'y1'
-      }
-    ]
-  },
-  options: {
-    responsive: true, maintainAspectRatio: false,
-    plugins: {
-      legend: { display: true, position: 'bottom', labels: { boxWidth: 12, padding: 14, font: { size: 11 } } },
-      datalabels: { display: false }
-    },
-    scales: {
-      x:  { grid: { color: gridColor }, border: { display: false } },
-      y:  { grid: { color: gridColor }, border: { display: false }, title: { display: true, text: 'TWh', font: { size: 10 } } },
-      y1: { position: 'right', grid: { display: false }, border: { display: false }, title: { display: true, text: 'Juta ton CO₂', font: { size: 10 } } }
-    }
-  }
-});
-
-/* ── 2. Distribusi Sektor ── */
-new Chart(document.getElementById('chartSector'), {
-  type: 'doughnut',
-  data: {
-    labels: ['Rumah tangga', 'Industri', 'Komersial', 'Transportasi', 'Lainnya'],
-    datasets: [{
-      data: [34, 38, 16, 8, 4],
-      backgroundColor: [GREEN, AMBER, BLUE, CORAL, '#B4B2A9'],
-      borderWidth: 0, hoverOffset: 6
-    }]
-  },
-  options: {
-    responsive: true, maintainAspectRatio: false,
-    cutout: '62%',
-    plugins: {
-      legend: { display: true, position: 'right', labels: { boxWidth: 10, padding: 10, font: { size: 11 } } },
-      datalabels: {
-        display: true,
-        color: '#fff', font: { size: 11, weight: '500' },
-        formatter: function(v) { return v > 8 ? v + '%' : ''; }
-      }
-    }
-  }
-});
-
-/* ── 3. Proyeksi Reduksi — dibuat sebagai variabel agar bisa diupdate ── */
-function hitungProyeksi(co2Base) {
-  /* Baseline: naik ~4% per tahun tanpa aksi */
-  var baseline = [0,1,2,3,4].map(function(i) {
-    return parseFloat((co2Base * Math.pow(1.04, i)).toFixed(1));
-  });
-  /* Dengan aksi: turun ~8% per tahun dari baseline */
-  var aksi = baseline.map(function(v, i) {
-    return parseFloat((v * Math.pow(0.92, i + 1)).toFixed(1));
-  });
-  return { baseline: baseline, aksi: aksi };
-}
-
-var proyeksiAwal = hitungProyeksi(1.9); /* default sebelum fetch */
-var chartProjection = new Chart(document.getElementById('chartProjection'), {
-  type: 'bar',
-  data: {
-    labels: ['2024','2025','2026','2027','2028'],
-    datasets: [
-      {
-        label: 'Baseline (tanpa aksi)',
-        data: proyeksiAwal.baseline,
-        backgroundColor: 'rgba(215,90,48,0.2)', borderColor: CORAL, borderWidth: 1.5
-      },
-      {
-        label: 'Dengan aksi nyata',
-        data: proyeksiAwal.aksi,
-        backgroundColor: 'rgba(29,158,117,0.25)', borderColor: GREEN, borderWidth: 1.5
-      }
-    ]
-  },
-  options: {
-    responsive: true, maintainAspectRatio: false,
-    plugins: {
-      legend: { display: true, position: 'bottom', labels: { boxWidth: 10, padding: 12, font: { size: 11 } } },
-      datalabels: { display: false }
-    },
-    scales: {
-      x: { grid: { display: false }, border: { display: false } },
-      y: { grid: { color: gridColor }, border: { display: false }, title: { display: true, text: 'Ton CO₂e', font: { size: 10 } } }
-    }
-  }
-});
-
-/* ── 4. Faktor Emisi vs EBT ── */
-new Chart(document.getElementById('chartEBT'), {
-  type: 'bar',
-  data: {
-    labels: ['Lampung','Jawa Barat','Jawa Timur','Bali','Sulsel'],
-    datasets: [
-      {
-        label: 'Potensi EBT (GW)',
-        data: [12.4, 8.9, 7.2, 3.1, 15.6],
-        backgroundColor: TEAL, borderRadius: 4
-      },
-      {
-        label: 'Emisi saat ini (juta ton)',
-        data: [4.2, 18.7, 22.1, 5.3, 7.8],
-        backgroundColor: 'rgba(239,159,39,0.5)', borderRadius: 4
-      }
-    ]
-  },
-  options: {
-    responsive: true, maintainAspectRatio: false,
-    plugins: {
-      legend: { display: true, position: 'bottom', labels: { boxWidth: 10, padding: 10, font: { size: 11 } } },
-      datalabels: { display: false }
-    },
-    scales: {
-      x: { grid: { display: false }, border: { display: false } },
-      y: { grid: { color: gridColor }, border: { display: false } }
-    }
-  }
-});
-
-/* ── 5. Tagihan Listrik — diisi oleh fetchLiveData ── */
-var chartTagihan = new Chart(document.getElementById('chartTagihan'), {
-  type: 'bar',
-  data: {
-    labels: ['< Rp 100rb','Rp 100–200rb','Rp 200–500rb','Rp 500rb–1jt','> Rp 1jt'],
-    datasets: [{ data: [0,0,0,0,0], backgroundColor: [TEAL,GREEN,GREEN,AMBER,CORAL], borderRadius: 6 }]
-  },
-  options: {
-    responsive: true, maintainAspectRatio: false,
-    plugins: {
-      datalabels: {
-        display: true, color: '#fff', font: { size: 11, weight: '500' },
-        formatter: function(v) { return v > 0 ? v + '%' : ''; },
-        anchor: 'end', align: 'start'
-      }
-    },
-    scales: {
-      x: { grid: { display: false }, border: { display: false } },
-      y: { display: false }
-    }
-  }
-});
-
-/* ── 6. Literasi Karbon — diisi oleh fetchLiveData ── */
-var chartLiterasi = new Chart(document.getElementById('chartLiterasi'), {
-  type: 'doughnut',
-  data: {
-    labels: ['Tidak tahu sama sekali','Tahu konsep, tidak bisa hitung','Ya, bisa menghitung'],
-    datasets: [{ data: [0,0,0], backgroundColor: [CORAL, AMBER, GREEN], borderWidth: 0, hoverOffset: 6 }]
-  },
-  options: {
-    responsive: true, maintainAspectRatio: false,
-    cutout: '55%',
-    plugins: {
-      legend: { display: true, position: 'bottom', labels: { boxWidth: 10, padding: 10, font: { size: 11 } } },
-      datalabels: {
-        display: true, color: '#fff', font: { size: 12, weight: '500' },
-        formatter: function(v) { return v > 0 ? v + '%' : ''; }
-      }
-    }
-  }
-});
-
-/* ── Helper: set bar survei dinamis ── */
-function setBar(id, pctVal) {
-  var fill  = document.getElementById('bar-' + id);
-  var label = document.getElementById('pct-' + id);
-  if (!fill || !label) return;
-  setTimeout(function() { fill.style.width = pctVal + '%'; }, 120);
-  label.textContent = pctVal + '%';
-}
-
-function pct(count, total) {
-  return total === 0 ? 0 : Math.round(count / total * 100);
-}
-
-function ada(teks, kata) {
-  return teks.toLowerCase().indexOf(kata.toLowerCase()) !== -1;
-}
-
-/* ── Parse TSV/CSV — Google Sheets export pakai TAB sebagai pemisah ── */
+/* ── PARSE CSV ── */
 function parseCSV(text) {
-  var lines = text.trim().split('\n');
-  if (lines.length === 0) return [];
-
-  /* Deteksi pemisah: tab atau koma */
-  var sep = lines[0].indexOf('\t') !== -1 ? '\t' : ',';
-
-  function splitBaris(line) {
-    if (sep === '\t') {
-      return line.split('\t').map(function(v) { return v.replace(/^"|"$/g,'').trim(); });
-    }
-    var cols = [], cur = '', inQ = false;
-    for (var i = 0; i < line.length; i++) {
-      var c = line[i];
-      if (c === '"') { inQ = !inQ; }
-      else if (c === ',' && !inQ) { cols.push(cur.replace(/"/g,'').trim()); cur = ''; }
-      else { cur += c; }
-    }
-    cols.push(cur.replace(/"/g,'').trim());
-    return cols;
+  const lines = text.trim().split('\n');
+  const header = parseCSVRow(lines[0]);
+  const rows = [];
+  for (let i = 1; i < lines.length; i++) {
+    const cells = parseCSVRow(lines[i]);
+    if (cells.length > 1) rows.push(cells);
   }
+  return { header, rows };
+}
 
-  var headers = splitBaris(lines[0]);
-  return lines.slice(1).filter(function(l) { return l.trim() !== ''; }).map(function(line) {
-    var cols = splitBaris(line);
-    var obj = {};
-    headers.forEach(function(h, i) { obj[h] = (cols[i] || '').trim(); });
-    return obj;
+function parseCSVRow(line) {
+  const result = [];
+  let cell = '', inQuote = false;
+  for (let i = 0; i < line.length; i++) {
+    const c = line[i];
+    if (c === '"') {
+      if (inQuote && line[i+1] === '"') { cell += '"'; i++; }
+      else inQuote = !inQuote;
+    } else if (c === ',' && !inQuote) {
+      result.push(cell.trim()); cell = '';
+    } else {
+      cell += c;
+    }
+  }
+  result.push(cell.trim());
+  return result;
+}
+
+/* ── COUNT HELPER ── */
+function countValues(rows, colIdx) {
+  const counts = {};
+  rows.forEach(r => {
+    const val = (r[colIdx] || '').trim();
+    if (!val) return;
+    counts[val] = (counts[val] || 0) + 1;
   });
+  return counts;
 }
 
-function cariKolom(headers, kata) {
-  return headers.find(function(h) { return ada(h, kata); }) || null;
+function countMultiValues(rows, colIdx) {
+  const counts = {};
+  rows.forEach(r => {
+    const val = (r[colIdx] || '').trim();
+    if (!val) return;
+    val.split(',').forEach(v => {
+      const k = v.trim();
+      if (k) counts[k] = (counts[k] || 0) + 1;
+    });
+  });
+  return counts;
 }
 
-/* ── Update hero, metric, proyeksi, SDG ── */
-function updateUI(n) {
-  var reduksiPerRumah = RATA_KWH_BULAN * 12 * FAKTOR_EMISI * PERSEN_EFISIENSI;
-  var co2Total = (n * reduksiPerRumah) / 1000;
-  var co2Str = co2Total.toFixed(1);
-
-  document.getElementById('surveyN').textContent = n;
-  document.getElementById('heroRespondents').innerHTML = n + '<span> resp.</span>';
-  document.getElementById('m3').textContent = n;
-  document.getElementById('heroCO2').innerHTML = co2Str + '<span> ton</span>';
-  document.getElementById('m1').textContent = co2Str;
-
-  var proj = hitungProyeksi(co2Total);
-  chartProjection.data.datasets[0].data = proj.baseline;
-  chartProjection.data.datasets[1].data = proj.aksi;
-  chartProjection.update();
-
-  var totalKg = Math.round(n * reduksiPerRumah);
-  document.getElementById('sdgN').textContent = n;
-  document.getElementById('sdgReduksiPerRumah').textContent = Math.round(reduksiPerRumah).toLocaleString('id-ID') + ' kg CO\u2082e';
-  document.getElementById('sdgTotalKg').textContent = totalKg.toLocaleString('id-ID') + ' kg = ' + co2Str + ' ton CO\u2082e/tahun';
-  document.getElementById('sdgBaseline').textContent = Math.round(RATA_KWH_BULAN * 12 * FAKTOR_EMISI).toLocaleString('id-ID') + ' kg CO\u2082e';
+function sortedEntries(obj, limit = 10) {
+  return Object.entries(obj)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, limit);
 }
 
-/* ── Update semua chart & bar survei dari data Google Sheets ──
-   Kolom berdasarkan struktur form aktual (diverifikasi dari data CSV):
-   [0] Timestamp
-   [1] Nama
-   [2] Provinsi
-   [3] Status tempat tinggal
-   [4] Tagihan listrik bulanan       ← kolom 4
-   [5] Daya listrik terpasang
-   [6] Perangkat elektronik          ← kolom 6
-   [7] Jam AC menyala
-   [8] Mematikan lampu
-   [9] Lampu LED
-   [10] Tahu cara hitung jejak karbon ← kolom 10
-   [11] Sumber informasi energi       ← kolom 11
-   [12] Penting isu iklim
-   [13] Bersedia ubah kebiasaan       ← kolom 13
-   [14] Hambatan hemat energi
-   [15] Masukan (opsional)
-── */
-function updateSurveiCharts(rows) {
-  var n = rows.length;
+function toPct(n, total) {
+  return total ? Math.round((n / total) * 100) : 0;
+}
+
+/* ── CREATE OR UPDATE CHART ── */
+function upsertChart(id, config) {
+  if (chartInstances[id]) {
+    chartInstances[id].destroy();
+  }
+  const ctx = document.getElementById(id);
+  if (!ctx) return;
+  chartInstances[id] = new Chart(ctx, config);
+}
+
+/* ── RENDER SURVEY BARS ── */
+function renderBars(containerId, entries, total, colorArr) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  el.innerHTML = '';
+  entries.forEach(([label, count], i) => {
+    const pct = toPct(count, total);
+    const color = colorArr ? colorArr[i % colorArr.length] : GREEN;
+    el.innerHTML += `
+      <div class="survey-bar-row">
+        <div class="survey-bar-label" title="${label}">${label.length > 16 ? label.slice(0,15)+'…' : label}</div>
+        <div class="survey-bar-track"><div class="survey-bar-fill" style="width:0%;background:${color}" data-target="${pct}"></div></div>
+        <div class="survey-bar-pct">${pct}%</div>
+      </div>`;
+  });
+  setTimeout(() => {
+    el.querySelectorAll('.survey-bar-fill').forEach(b => b.style.width = b.dataset.target + '%');
+  }, 80);
+}
+
+/* ── BUILD ALL CHARTS FROM DATA ── */
+function buildDashboard(rows) {
+  const n = rows.length;
   if (n === 0) return;
 
-  /* Ambil nilai kolom berdasarkan indeks (lebih andal dari nama kolom) */
-  function kolom(row, idx) {
-    var vals = Object.values(row);
-    return (vals[idx] || '').trim();
+  /* ── HERO METRICS ── */
+  document.getElementById('heroN').textContent = n;
+  document.getElementById('surveyN').textContent = n;
+  document.getElementById('m3').textContent = n;
+
+  // CO2 proyeksi
+  const co2 = (n * 275 / 1000).toFixed(1);
+  document.getElementById('heroCO2').textContent = co2;
+  document.getElementById('m1').textContent = co2;
+  document.getElementById('calcN').textContent = n;
+  document.getElementById('calcTotal').textContent = `≈ ${(n*275).toLocaleString('id')} kg = ${co2} ton CO₂e/tahun`;
+
+  // Willing %
+  const willingCounts = countValues(rows, 13);
+  const willingYes = Object.entries(willingCounts)
+    .filter(([k]) => k.toLowerCase().includes('bersedia') || k.toLowerCase().includes('sangat'))
+    .reduce((s,[,v]) => s+v, 0);
+  const willingPct = toPct(willingYes, n);
+  document.getElementById('heroWilling').textContent = willingPct;
+
+  // LED %
+  const ledCounts = countValues(rows, 9);
+  const ledYes = Object.entries(ledCounts)
+    .filter(([k]) => k.toLowerCase().includes('ya'))
+    .reduce((s,[,v]) => s+v, 0);
+  const ledPct = toPct(ledYes, n);
+  document.getElementById('m4').textContent = ledPct;
+
+  // Roadmap badge
+  const badgeN = document.getElementById('badge-n');
+  if (badgeN) badgeN.textContent = n + ' responden';
+
+  /* ── SDG BARS (from live data) ── */
+  // SDG 7: LED literacy proxy
+  const litCounts = countValues(rows, 10);
+  const litKnow = Object.entries(litCounts)
+    .filter(([k]) => !k.toLowerCase().includes('tidak tahu'))
+    .reduce((s,[,v]) => s+v, 0);
+  const litPct = toPct(litKnow, n);
+  document.getElementById('sdg7bar').style.width = litPct + '%';
+  document.getElementById('sdg7pct').textContent = litPct + '% capaian indikator literasi energi';
+
+  // SDG 13: willing proxy
+  document.getElementById('sdg13bar').style.width = willingPct + '%';
+  document.getElementById('sdg13pct').textContent = willingPct + '% responden bersedia aksi nyata';
+
+  // SDG 10: kos+asrama (lower income) proxy
+  const hunianCounts = countValues(rows, 3);
+  const lowerHunian = (hunianCounts['Kos/kontrakan'] || 0) + (hunianCounts['Asrama/mess'] || 0);
+  const sdg10pct = toPct(lowerHunian, n);
+  document.getElementById('sdg10bar').style.width = sdg10pct + '%';
+  document.getElementById('sdg10pct').textContent = sdg10pct + '% responden dari kelompok sasaran';
+  document.getElementById('calcN').textContent = n;
+
+  /* ── CHART: TAGIHAN ── */
+  const tagihanCounts = countValues(rows, 4);
+  const tagihanOrder = ['Di bawah Rp 100.000','Rp 100.000 – 200.000','Rp 200.000 – 500.000','Rp 500.000 – 1.000.000','Di atas Rp 1.000.000'];
+  const tagihanLabels = [], tagihanData = [];
+  tagihanOrder.forEach(k => {
+    const match = Object.entries(tagihanCounts).find(([key]) => key.includes(k.replace(/\./g,'').slice(0,10)));
+    if (match) { tagihanLabels.push(k.replace('Di bawah','< ').replace('Di atas','> ')); tagihanData.push(match[1]); }
+  });
+  // fallback: jika tidak ada match, gunakan semua nilai
+  if (tagihanLabels.length === 0) {
+    sortedEntries(tagihanCounts).forEach(([k,v]) => { tagihanLabels.push(k); tagihanData.push(v); });
+  }
+  document.getElementById('tagihanSub').textContent = `Distribusi responden (n=${n})`;
+  upsertChart('chartTagihan', {
+    type: 'bar',
+    data: {
+      labels: tagihanLabels.length ? tagihanLabels : Object.keys(tagihanCounts),
+      datasets: [{ data: tagihanLabels.length ? tagihanData : Object.values(tagihanCounts),
+        backgroundColor: PALETTE, borderRadius: 6 }]
+    },
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      plugins: { datalabels: { color:'#fff', font:{size:11,weight:'500'},
+        formatter:v=>v, anchor:'end', align:'start' } },
+      scales: {
+        x:{grid:{display:false},border:{display:false},ticks:{font:{size:10}}},
+        y:{display:false}
+      }
+    },
+    plugins: [ChartDataLabels]
+  });
+
+  /* ── CHART: DAYA ── */
+  const dayaCounts = countValues(rows, 5);
+  const dayaEntries = sortedEntries(dayaCounts);
+  document.getElementById('dayaSub').textContent = `Distribusi responden (n=${n})`;
+  upsertChart('chartDaya', {
+    type: 'doughnut',
+    data: {
+      labels: dayaEntries.map(([k])=>k),
+      datasets:[{ data:dayaEntries.map(([,v])=>v), backgroundColor:PALETTE, borderWidth:0, hoverOffset:6 }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false, cutout:'55%',
+      plugins:{
+        legend:{display:true, position:'right', labels:{boxWidth:10, padding:8, font:{size:10}}},
+        datalabels:{color:'#fff', font:{size:11,weight:'500'}, formatter:(v,ctx)=> toPct(v,n)+'%'}
+      }
+    },
+    plugins:[ChartDataLabels]
+  });
+
+  /* ── CHART: LITERASI ── */
+  const litEntries = sortedEntries(litCounts);
+  upsertChart('chartLiterasi', {
+    type: 'doughnut',
+    data: {
+      labels: litEntries.map(([k])=>k),
+      datasets:[{ data:litEntries.map(([,v])=>v), backgroundColor:[CORAL,AMBER,GREEN,TEAL], borderWidth:0, hoverOffset:6 }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false, cutout:'55%',
+      plugins:{
+        legend:{display:true, position:'bottom', labels:{boxWidth:10,padding:8,font:{size:10}}},
+        datalabels:{color:'#fff', font:{size:12,weight:'500'}, formatter:(v)=> toPct(v,n)+'%'}
+      }
+    },
+    plugins:[ChartDataLabels]
+  });
+
+  /* ── CHART: IKLIM (skala 1–5) ── */
+  const iklimCounts = {1:0, 2:0, 3:0, 4:0, 5:0};
+  rows.forEach(r => {
+    const v = parseInt((r[12]||'').trim());
+    if (v >= 1 && v <= 5) iklimCounts[v]++;
+  });
+  upsertChart('chartIklim', {
+    type:'bar',
+    data:{
+      labels:['1 (Tidak penting)','2','3','4','5 (Sangat penting)'],
+      datasets:[{data:Object.values(iklimCounts), backgroundColor:[CORAL,AMBER,TEAL,GREEN,'#0F6E56'], borderRadius:6}]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{datalabels:{color:'#fff',font:{size:11,weight:'500'},formatter:v=>v||'', anchor:'end', align:'start'}},
+      scales:{
+        x:{grid:{display:false},border:{display:false},ticks:{font:{size:10}}},
+        y:{display:false}
+      }
+    },
+    plugins:[ChartDataLabels]
+  });
+
+  /* ── CHART: HUNIAN ── */
+  const hunianEntries = sortedEntries(hunianCounts);
+  upsertChart('chartHunian', {
+    type:'doughnut',
+    data:{
+      labels:hunianEntries.map(([k])=>k),
+      datasets:[{data:hunianEntries.map(([,v])=>v), backgroundColor:PALETTE, borderWidth:0, hoverOffset:6}]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false, cutout:'55%',
+      plugins:{
+        legend:{display:true,position:'bottom',labels:{boxWidth:10,padding:8,font:{size:10}}},
+        datalabels:{color:'#fff',font:{size:12,weight:'500'},formatter:(v)=>toPct(v,n)+'%'}
+      }
+    },
+    plugins:[ChartDataLabels]
+  });
+
+  /* ── CHART: LED ── */
+  const ledEntries = sortedEntries(ledCounts);
+  upsertChart('chartLED', {
+    type:'bar',
+    data:{
+      labels:ledEntries.map(([k])=>k),
+      datasets:[{data:ledEntries.map(([,v])=>v), backgroundColor:[GREEN,AMBER,CORAL,TEAL], borderRadius:6}]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{datalabels:{color:'#fff',font:{size:11,weight:'500'},formatter:v=>v, anchor:'end', align:'start'}},
+      scales:{x:{grid:{display:false},border:{display:false},ticks:{font:{size:10}}},y:{display:false}}
+    },
+    plugins:[ChartDataLabels]
+  });
+
+  /* ── CHART: AC ── */
+  const acCounts = countValues(rows, 7);
+  const acOrder = ['Tidak punya AC','Kurang dari 4 jam/hari','4–8 jam/hari','Lebih dari 8 jam/hari'];
+  const acLabels = [], acData = [];
+  acOrder.forEach(k => {
+    const found = Object.entries(acCounts).find(([key]) => key.includes(k.split('/')[0].trim().slice(0,12)));
+    if (found) { acLabels.push(k); acData.push(found[1]); }
+  });
+  const acFinal = acLabels.length ? {labels:acLabels, data:acData} : {labels:Object.keys(acCounts), data:Object.values(acCounts)};
+  upsertChart('chartAC', {
+    type:'bar',
+    data:{
+      labels:acFinal.labels,
+      datasets:[{data:acFinal.data, backgroundColor:[TEAL,GREEN,AMBER,CORAL], borderRadius:6}]
+    },
+    options:{
+      indexAxis:'y', responsive:true, maintainAspectRatio:false,
+      plugins:{datalabels:{color:GREEN,font:{size:12,weight:'500'},formatter:v=>v+' resp', anchor:'end', align:'end', color:'#555550'}},
+      scales:{x:{display:false},y:{grid:{display:false},border:{display:false},ticks:{font:{size:12}}}}
+    },
+    plugins:[ChartDataLabels]
+  });
+
+  /* ── SURVEY BARS ── */
+  // Perangkat (multi-value)
+  const perangkatCounts = countMultiValues(rows, 6);
+  renderBars('barPerangkat', sortedEntries(perangkatCounts, 5), n, [GREEN,TEAL,AMBER,CORAL,BLUE]);
+
+  // Kesediaan
+  const kesediaanCounts = countValues(rows, 13);
+  renderBars('barKesediaan', sortedEntries(kesediaanCounts, 5), n, [GREEN,TEAL,AMBER,CORAL,'#999']);
+
+  // Hambatan
+  const hambatanCounts = countValues(rows, 14);
+  renderBars('barHambatan', sortedEntries(hambatanCounts, 5), n, [CORAL,AMBER,BLUE,GREEN,TEAL]);
+
+  // Sumber info (multi-value)
+  const sumberCounts = countMultiValues(rows, 11);
+  renderBars('barSumber', sortedEntries(sumberCounts, 5), n, [BLUE,TEAL,GREEN,AMBER,CORAL]);
+
+  /* ── QUOTES ── */
+  const quotesList = document.getElementById('quotesList');
+  if (quotesList) {
+    const quotes = rows
+      .filter(r => (r[15]||'').trim().length > 5)
+      .map(r => ({ text: r[15].trim(), name: r[1]||'Anonim', provinsi: r[2]||'' }));
+    if (quotes.length === 0) {
+      quotesList.innerHTML = '<div style="font-size:13px;color:var(--ink3);padding:8px 0;">Belum ada masukan dari responden.</div>';
+    } else {
+      quotesList.innerHTML = quotes.map(q =>
+        `<div class="quote-item">${q.text}<span class="quote-tag">${q.name}${q.provinsi ? ' · '+q.provinsi : ''}</span></div>`
+      ).join('');
+    }
   }
 
-  /* ── Tagihan listrik (kolom 4) ── */
-  var t = [0,0,0,0,0]; /* <100rb | 100-200rb | 200-500rb | 500rb-1jt | >1jt */
-  rows.forEach(function(r) {
-    var v = kolom(r, 4);
-    if      (ada(v,'Di bawah'))                  t[0]++;
-    else if (ada(v,'100.000') && ada(v,'200'))   t[1]++;
-    else if (ada(v,'200.001') || (ada(v,'200') && ada(v,'500'))) t[2]++;
-    else if (ada(v,'500.001') || (ada(v,'500') && ada(v,'1.000'))) t[3]++;
-    else if (ada(v,'Di atas'))                   t[4]++;
-  });
-  chartTagihan.data.datasets[0].data = t.map(function(v){ return pct(v,n); });
-  chartTagihan.update();
-  document.getElementById('subTagihan').textContent = 'Distribusi responden (n=' + n + ')';
-
-  /* ── Literasi jejak karbon (kolom 10) ── */
-  var bisa=0, konsep=0, tidak=0;
-  rows.forEach(function(r) {
-    var v = kolom(r, 10);
-    if      (ada(v,'Ya') && ada(v,'bisa'))   bisa++;
-    else if (ada(v,'konsep'))                konsep++;
-    else                                     tidak++;
-  });
-  chartLiterasi.data.datasets[0].data = [pct(tidak,n), pct(konsep,n), pct(bisa,n)];
-  chartLiterasi.update();
-  document.getElementById('subLiterasi').textContent = 'Tingkat literasi karbon (n=' + n + ')';
-
-  /* ── Perangkat elektronik (kolom 6) — checkbox, bisa pilih banyak ── */
-  var ac=0, kulkas=0, cuci=0, water=0, tv=0, laptop=0;
-  rows.forEach(function(r) {
-    var v = kolom(r, 6);
-    if (ada(v,'AC') || ada(v,'pendingin'))    ac++;
-    if (ada(v,'Kulkas') || ada(v,'lemari'))   kulkas++;
-    if (ada(v,'Mesin cuci'))                  cuci++;
-    if (ada(v,'Water heater'))                water++;
-    if (ada(v,'TV') || ada(v,'set-top'))      tv++;
-    if (ada(v,'Laptop') || ada(v,'komputer')) laptop++;
-  });
-  setBar('ac',          pct(ac,n));
-  setBar('kulkas',      pct(kulkas,n));
-  setBar('mesincuci',   pct(cuci,n));
-  setBar('waterheater', pct(water,n));
-  setBar('tv',          pct(tv,n));
-  setBar('laptop',      pct(laptop,n));
-
-  /* ── Kesediaan ubah kebiasaan (kolom 13) ── */
-  var k1=0, k2=0, k3=0, k4=0;
-  rows.forEach(function(r) {
-    var v = kolom(r, 13);
-    if      (ada(v,'Sangat bersedia') || ada(v,'sudah mulai')) k1++;
-    else if (ada(v,'Bersedia') || ada(v,'panduan'))            k2++;
-    else if (ada(v,'ragu'))                                    k3++;
-    else if (ada(v,'Belum') || ada(v,'tertarik'))              k4++;
-  });
-  setBar('k1',pct(k1,n)); setBar('k2',pct(k2,n));
-  setBar('k3',pct(k3,n)); setBar('k4',pct(k4,n));
-
-  /* ── Sumber informasi energi (kolom 11) — checkbox ── */
-  var s1=0, s2=0, s3=0, s4=0, s5=0;
-  rows.forEach(function(r) {
-    var v = kolom(r, 11);
-    if (ada(v,'Media sosial') || ada(v,'Instagram') || ada(v,'TikTok')) s1++;
-    if (ada(v,'Berita') || ada(v,'portal'))                              s2++;
-    if (ada(v,'Keluarga') || ada(v,'teman'))                            s3++;
-    if (ada(v,'Kampus') || ada(v,'sekolah'))                            s4++;
-    if (ada(v,'pemerintah') || ada(v,'ESDM') || ada(v,'KLHK'))         s5++;
-  });
-  setBar('s1',pct(s1,n)); setBar('s2',pct(s2,n)); setBar('s3',pct(s3,n));
-  setBar('s4',pct(s4,n)); setBar('s5',pct(s5,n));
+  /* ── SHOW CONTENT ── */
+  document.getElementById('surveyLoading').style.display = 'none';
+  document.getElementById('surveyContent').style.display = 'block';
 }
 
-/* ── Fetch live data ── */
-async function fetchLiveData() {
-  if (!SHEET_CSV_URL) return;
-  var statusEl = document.getElementById('liveStatus');
-  statusEl.textContent = '\u23F3 Memuat data dari Google Sheets\u2026';
-  statusEl.className = 'live-status';
+/* ══ STATIC SECONDARY DATA CHARTS (selalu tampil) ══ */
+function buildStaticCharts() {
+  /* Tren Konsumsi vs Emisi */
+  upsertChart('chartTrend', {
+    type:'line',
+    data:{
+      labels:['2019','2020','2021','2022','2023'],
+      datasets:[
+        { label:'Konsumsi (TWh)', data:[263,248,254,271,285],
+          borderColor:GREEN, tension:0.4, pointRadius:4, pointBackgroundColor:GREEN,
+          fill:false, yAxisID:'y' },
+        { label:'Emisi CO₂ (juta ton)', data:[229,216,221,236,248],
+          borderColor:AMBER, tension:0.4, pointRadius:4, pointBackgroundColor:AMBER,
+          borderDash:[5,3], fill:false, yAxisID:'y1' }
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{display:true,position:'bottom',labels:{boxWidth:12,padding:14,font:{size:11}}}},
+      scales:{
+        x:{grid:{color:gridColor},border:{display:false}},
+        y:{grid:{color:gridColor},border:{display:false},title:{display:true,text:'TWh',font:{size:10}}},
+        y1:{position:'right',grid:{display:false},border:{display:false},title:{display:true,text:'Juta ton CO₂',font:{size:10}}}
+      }
+    }
+  });
 
-  var controller = new AbortController();
-  var timer = setTimeout(function() { controller.abort(); }, FETCH_TIMEOUT_MS);
+  /* Distribusi Sektor */
+  upsertChart('chartSector', {
+    type:'doughnut',
+    data:{
+      labels:['Rumah tangga','Industri','Komersial','Transportasi','Lainnya'],
+      datasets:[{data:[34,38,16,8,4], backgroundColor:[GREEN,AMBER,BLUE,CORAL,'#B4B2A9'], borderWidth:0, hoverOffset:6}]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false, cutout:'62%',
+      plugins:{
+        legend:{display:true,position:'right',labels:{boxWidth:10,padding:10,font:{size:11}}},
+        datalabels:{color:'#fff',font:{size:11,weight:'500'},formatter:v=>v>8?v+'%':''}
+      }
+    },
+    plugins:[ChartDataLabels]
+  });
 
+  /* Proyeksi Reduksi */
+  upsertChart('chartProjection', {
+    type:'bar',
+    data:{
+      labels:['2024','2025','2026','2027','2028'],
+      datasets:[
+        { label:'Baseline (tanpa aksi)', data:[18.4,19.2,20.1,21.0,22.0],
+          backgroundColor:'rgba(215,90,48,0.2)', borderColor:CORAL, borderWidth:1.5 },
+        { label:'Dengan aksi nyata', data:[15.3,14.8,13.9,12.5,11.2],
+          backgroundColor:'rgba(29,158,117,0.25)', borderColor:GREEN, borderWidth:1.5 }
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{display:true,position:'bottom',labels:{boxWidth:10,padding:12,font:{size:11}}}},
+      scales:{
+        x:{grid:{display:false},border:{display:false}},
+        y:{grid:{color:gridColor},border:{display:false},title:{display:true,text:'Ton CO₂e',font:{size:10}}}
+      }
+    }
+  });
+
+  /* EBT vs Emisi */
+  upsertChart('chartEBT', {
+    type:'bar',
+    data:{
+      labels:['Lampung','Jawa Barat','Jawa Timur','Bali','Sulsel'],
+      datasets:[
+        { label:'Potensi EBT (GW)', data:[12.4,8.9,7.2,3.1,15.6], backgroundColor:TEAL, borderRadius:4 },
+        { label:'Emisi saat ini (juta ton)', data:[4.2,18.7,22.1,5.3,7.8], backgroundColor:'rgba(239,159,39,0.5)', borderRadius:4 }
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{display:true,position:'bottom',labels:{boxWidth:10,padding:10,font:{size:11}}}},
+      scales:{
+        x:{grid:{display:false},border:{display:false}},
+        y:{grid:{color:gridColor},border:{display:false}}
+      }
+    }
+  });
+}
+
+/* ── TAB SWITCHING ── */
+function switchTab(id) {
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  const tabs=['overview','survey','sdg','roadmap'];
+  document.querySelectorAll('.nav-link')[tabs.indexOf(id)].classList.add('active');
+}
+
+/* ── FETCH & REFRESH ── */
+let lastRowCount = 0;
+
+async function fetchData() {
+  const btn = document.getElementById('refreshBtn');
+  if (btn) btn.classList.add('spinning');
   try {
-    var res = await fetch(SHEET_CSV_URL, { signal: controller.signal });
-    clearTimeout(timer);
+    const url = SHEET_CSV_URL + '&_=' + Date.now(); // cache bust
+    const res = await fetch(url);
     if (!res.ok) throw new Error('HTTP ' + res.status);
-
-    var text = await res.text();
-    var rows = parseCSV(text);
-    updateUI(rows.length);
-    updateSurveiCharts(rows);
-
-    statusEl.textContent = '\u2713 Data berhasil dimuat \u2014 ' + rows.length + ' responden (' + new Date().toLocaleTimeString('id-ID') + ')';
-    statusEl.className = 'live-status success';
-
-  } catch (err) {
-    clearTimeout(timer);
-    console.error('fetchLiveData:', err);
-    statusEl.textContent = err.name === 'AbortError'
-      ? '\u26A0 Koneksi habis waktu. Periksa URL Google Sheets.'
-      : '\u26A0 Gagal memuat data (' + err.message + '). Pastikan sheet sudah dipublish sebagai CSV.';
-    statusEl.className = 'live-status error';
+    const text = await res.text();
+    const { rows } = parseCSV(text);
+    if (rows.length !== lastRowCount || lastRowCount === 0) {
+      lastRowCount = rows.length;
+      buildDashboard(rows);
+    }
+  } catch(e) {
+    console.warn('Gagal memuat data live:', e.message);
+    document.getElementById('surveyLoading').innerHTML =
+      '<div style="color:var(--coral);font-size:13px;">⚠️ Gagal memuat data. Periksa URL atau koneksi.<br><small>'+e.message+'</small></div>';
+  } finally {
+    if (btn) btn.classList.remove('spinning');
   }
 }
 
-/* ── Auto-refresh setiap 5 menit ── */
-var REFRESH_INTERVAL_MS = 5 * 60 * 1000; /* 5 menit */
-var hitungMundur = REFRESH_INTERVAL_MS / 1000;
-
-function mulaiCountdown() {
-  hitungMundur = REFRESH_INTERVAL_MS / 1000;
-  var countdown = setInterval(function() {
-    hitungMundur--;
-    var statusEl = document.getElementById('liveStatus');
-    if (statusEl && statusEl.className === 'live-status success') {
-      var menit = Math.floor(hitungMundur / 60);
-      var detik = hitungMundur % 60;
-      var label = menit > 0
-        ? 'Refresh otomatis dalam ' + menit + ' mnt ' + detik + ' dtk'
-        : 'Refresh otomatis dalam ' + detik + ' dtk';
-      /* hanya tampilkan countdown, jangan timpa pesan error */
-      var baris = statusEl.textContent.split(' \u2014 ')[0];
-      statusEl.textContent = baris + ' \u2014 ' + label;
-    }
-    if (hitungMundur <= 0) {
-      clearInterval(countdown);
-      fetchLiveData().then(mulaiCountdown);
-    }
-  }, 1000);
+function refreshData() {
+  lastRowCount = 0; // force re-render
+  fetchData();
 }
 
-/* ── Jalankan saat halaman dimuat ── */
-fetchLiveData().then(mulaiCountdown);
-animateBars();
+/* ── INIT ── */
+buildStaticCharts();
+fetchData();
+
+// Auto refresh setiap 60 detik
+setInterval(fetchData, 60000);
 </script>
 </body>
 </html>
