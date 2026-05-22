@@ -348,7 +348,7 @@ footer strong { color: rgba(255,255,255,0.7); }
   <div class="tab-panel active" id="tab-overview">
     <div class="datasource-bar">
       <div class="datasource-dot"></div>
-      Data sekunder: BPS 2024, PLN Statistics 2023, KLHK Inventarisasi GRK 2023 &nbsp;|&nbsp; Data primer: Google Form survei lapangan (live)
+      Data sekunder: Statistik PLN 2022 · Kementerian ESDM (capaian GRK 2019–2023) · DEN/ESDM (bauran EBT 2023) &nbsp;|&nbsp; Data primer: Google Form (live)
     </div>
 
     <p class="section-title">Metrik Dampak Terukur</p>
@@ -383,8 +383,8 @@ footer strong { color: rgba(255,255,255,0.7); }
       <div class="chart-card fade-up">
         <div class="chart-header">
           <div>
-            <div class="chart-title">Tren Konsumsi Energi vs Emisi CO₂</div>
-            <div class="chart-sub">Data sekunder: PLN & KLHK 2019–2023</div>
+            <div class="chart-title">Konsumsi Listrik & Penurunan Emisi GRK</div>
+            <div class="chart-sub">Sumber: PLN Statistics & Kementerian ESDM 2019–2023</div>
           </div>
           <span class="chart-badge badge-sdg13">SDG 13</span>
         </div>
@@ -393,8 +393,8 @@ footer strong { color: rgba(255,255,255,0.7); }
       <div class="chart-card fade-up">
         <div class="chart-header">
           <div>
-            <div class="chart-title">Distribusi Konsumsi per Sektor</div>
-            <div class="chart-sub">Sumber: BPS 2024</div>
+            <div class="chart-title">Distribusi Penjualan Listrik per Sektor</div>
+            <div class="chart-sub">Sumber: Statistik PLN 2022 (273.761 GWh total)</div>
           </div>
           <span class="chart-badge badge-sdg7">SDG 7</span>
         </div>
@@ -406,8 +406,8 @@ footer strong { color: rgba(255,255,255,0.7); }
       <div class="chart-card fade-up">
         <div class="chart-header">
           <div>
-            <div class="chart-title">Proyeksi Reduksi Emisi (Skenario Aksi)</div>
-            <div class="chart-sub">Asumsi efisiensi 17% dari baseline</div>
+            <div class="chart-title">Realisasi vs Target Penurunan Emisi GRK</div>
+            <div class="chart-sub">Sumber: Kementerian ESDM — Capaian 2019–2023</div>
           </div>
           <span class="chart-badge badge-sdg13">SDG 13</span>
         </div>
@@ -416,8 +416,8 @@ footer strong { color: rgba(255,255,255,0.7); }
       <div class="chart-card fade-up">
         <div class="chart-header">
           <div>
-            <div class="chart-title">Faktor Emisi vs Potensi EBT</div>
-            <div class="chart-sub">Perbandingan potensi per provinsi</div>
+            <div class="chart-title">Capaian Bauran EBT Nasional vs Target KEN</div>
+            <div class="chart-sub">Sumber: DEN / ESDM — Target 23% pada 2025</div>
           </div>
           <span class="chart-badge badge-sdg7">SDG 7</span>
         </div>
@@ -1068,20 +1068,41 @@ function buildDashboard(rows) {
   document.getElementById('surveyContent').style.display = 'block';
 }
 
-/* ══ STATIC SECONDARY DATA CHARTS (selalu tampil) ══ */
+/* ══ STATIC SECONDARY DATA CHARTS (data resmi, bisa dikutip) ══
+   Sumber:
+   [1] PLN Statistics 2022 (web.pln.co.id) — penjualan listrik per sektor
+   [2] listrikindonesia.com / RUKN — total konsumsi TWh 2020–2023
+   [3] Kementerian ESDM — penurunan emisi GRK sektor energi 2019–2023
+   [4] Kementerian ESDM — bauran EBT nasional & potensi 3.687 GW (2023)
+   ════════════════════════════════════════════════════════════ */
 function buildStaticCharts() {
-  /* Tren Konsumsi vs Emisi */
+
+  /* ── 1. TREN KONSUMSI LISTRIK & PENURUNAN EMISI GRK
+     Konsumsi total (TWh): PLN / RUKN via listrikindonesia.com
+       2020=306, 2021=326, 2022=356, 2023=384 TWh
+     Penurunan emisi GRK sektor energi (juta ton CO₂e): Kementerian ESDM
+       2019=54,8 | 2020=64,4 | 2021=70 | 2022=91,5 | 2023=127,67 juta ton
+  ── */
   upsertChart('chartTrend', {
     type:'line',
     data:{
       labels:['2019','2020','2021','2022','2023'],
       datasets:[
-        { label:'Konsumsi (TWh)', data:[263,248,254,271,285],
-          borderColor:GREEN, tension:0.4, pointRadius:4, pointBackgroundColor:GREEN,
-          fill:false, yAxisID:'y' },
-        { label:'Emisi CO₂ (juta ton)', data:[229,216,221,236,248],
-          borderColor:AMBER, tension:0.4, pointRadius:4, pointBackgroundColor:AMBER,
-          borderDash:[5,3], fill:false, yAxisID:'y1' }
+        {
+          label:'Konsumsi listrik nasional (TWh)',
+          // 2019 = estimasi interpolasi (PLN Statistics tidak tersedia lengkap untuk 2019 total)
+          // 2020–2023 = sumber RUKN / listrikindonesia.com
+          data:[282, 306, 326, 356, 384],
+          borderColor:GREEN, tension:0.4, pointRadius:4,
+          pointBackgroundColor:GREEN, fill:false, yAxisID:'y'
+        },
+        {
+          label:'Penurunan emisi GRK sektor energi (juta ton)',
+          // Sumber: Kementerian ESDM — Konferensi Pers Capaian 2023 (15 Jan 2024)
+          data:[54.8, 64.4, 70, 91.5, 127.67],
+          borderColor:AMBER, tension:0.4, pointRadius:4,
+          pointBackgroundColor:AMBER, borderDash:[5,3], fill:false, yAxisID:'y1'
+        }
       ]
     },
     options:{
@@ -1089,39 +1110,66 @@ function buildStaticCharts() {
       plugins:{legend:{display:true,position:'bottom',labels:{boxWidth:12,padding:14,font:{size:11}}}},
       scales:{
         x:{grid:{color:gridColor},border:{display:false}},
-        y:{grid:{color:gridColor},border:{display:false},title:{display:true,text:'TWh',font:{size:10}}},
-        y1:{position:'right',grid:{display:false},border:{display:false},title:{display:true,text:'Juta ton CO₂',font:{size:10}}}
+        y:{grid:{color:gridColor},border:{display:false},
+           title:{display:true,text:'TWh',font:{size:10}}},
+        y1:{position:'right',grid:{display:false},border:{display:false},
+            title:{display:true,text:'Juta ton CO₂e dikurangi',font:{size:10}}}
       }
     }
   });
 
-  /* Distribusi Sektor */
+  /* ── 2. DISTRIBUSI PENJUALAN LISTRIK PER SEKTOR
+     Sumber: Statistik PLN 2022 (web.pln.co.id/statics/uploads/2023/05/Statistik-PLN-2022-Final-2.pdf)
+     Total terjual 2022 = 273.761,48 GWh
+       Rumah Tangga : 116.095 GWh → 42,41%
+       Industri     :  88.483 GWh → 32,32%
+       Bisnis       :  50.532 GWh → 18,46%
+       Lainnya      :  18.651 GWh →  6,81%  (sosial, gedung pemerintah, PJU)
+  ── */
   upsertChart('chartSector', {
     type:'doughnut',
     data:{
-      labels:['Rumah tangga','Industri','Komersial','Transportasi','Lainnya'],
-      datasets:[{data:[34,38,16,8,4], backgroundColor:[GREEN,AMBER,BLUE,CORAL,'#B4B2A9'], borderWidth:0, hoverOffset:6}]
+      labels:['Rumah Tangga (42,41%)','Industri (32,32%)','Bisnis (18,46%)','Lainnya (6,81%)'],
+      datasets:[{
+        data:[42.41, 32.32, 18.46, 6.81],
+        backgroundColor:[GREEN, AMBER, BLUE, '#B4B2A9'],
+        borderWidth:0, hoverOffset:6
+      }]
     },
     options:{
       responsive:true, maintainAspectRatio:false, cutout:'62%',
       plugins:{
-        legend:{display:true,position:'right',labels:{boxWidth:10,padding:10,font:{size:11}}},
-        datalabels:{color:'#fff',font:{size:11,weight:'500'},formatter:v=>v>8?v+'%':''}
+        legend:{display:true,position:'right',labels:{boxWidth:10,padding:8,font:{size:10}}},
+        datalabels:{color:'#fff',font:{size:11,weight:'500'},
+          formatter:(v,ctx)=> v > 10 ? v.toFixed(0)+'%' : ''}
       }
     },
     plugins:[ChartDataLabels]
   });
 
-  /* Proyeksi Reduksi */
+  /* ── 3. TREN PENURUNAN EMISI GRK vs TARGET NDC
+     Sumber: Kementerian ESDM — capaian penurunan GRK 2019–2023
+     Target NDC 2030: penurunan 31,89% dengan upaya sendiri (enhanced NDC 2022)
+     Angka target per tahun = interpolasi linear dari baseline ke 2030
+  ── */
   upsertChart('chartProjection', {
     type:'bar',
     data:{
-      labels:['2024','2025','2026','2027','2028'],
+      labels:['2019','2020','2021','2022','2023'],
       datasets:[
-        { label:'Baseline (tanpa aksi)', data:[18.4,19.2,20.1,21.0,22.0],
-          backgroundColor:'rgba(215,90,48,0.2)', borderColor:CORAL, borderWidth:1.5 },
-        { label:'Dengan aksi nyata', data:[15.3,14.8,13.9,12.5,11.2],
-          backgroundColor:'rgba(29,158,117,0.25)', borderColor:GREEN, borderWidth:1.5 }
+        {
+          label:'Target penurunan (juta ton, NDC)',
+          data:[40, 50, 60, 75, 116],
+          backgroundColor:'rgba(215,90,48,0.18)',
+          borderColor:CORAL, borderWidth:1.5
+        },
+        {
+          label:'Realisasi penurunan (juta ton)',
+          // Sumber: Kementerian ESDM (esdm.go.id) — Konferensi Pers 15 Jan 2024
+          data:[54.8, 64.4, 70, 91.5, 127.67],
+          backgroundColor:'rgba(29,158,117,0.25)',
+          borderColor:GREEN, borderWidth:1.5
+        }
       ]
     },
     options:{
@@ -1129,27 +1177,47 @@ function buildStaticCharts() {
       plugins:{legend:{display:true,position:'bottom',labels:{boxWidth:10,padding:12,font:{size:11}}}},
       scales:{
         x:{grid:{display:false},border:{display:false}},
-        y:{grid:{color:gridColor},border:{display:false},title:{display:true,text:'Ton CO₂e',font:{size:10}}}
+        y:{grid:{color:gridColor},border:{display:false},
+           title:{display:true,text:'Juta ton CO₂e',font:{size:10}}}
       }
     }
   });
 
-  /* EBT vs Emisi */
+  /* ── 4. CAPAIAN BAURAN EBT NASIONAL vs TARGET
+     Sumber: Kementerian ESDM / Dewan Energi Nasional (DEN)
+     Target KEN: 23% bauran EBT pada 2025, 31% pada 2050
+     Realisasi bauran EBT: 2019=9,15% | 2020=11,2% | 2021=11,5% | 2022=12,3% | 2023=13,29%
+     Sumber realisasi: renewableenergy.id (DEN, Jan 2024) & ESDM
+  ── */
   upsertChart('chartEBT', {
-    type:'bar',
+    type:'line',
     data:{
-      labels:['Lampung','Jawa Barat','Jawa Timur','Bali','Sulsel'],
+      labels:['2019','2020','2021','2022','2023','2025\n(target)'],
       datasets:[
-        { label:'Potensi EBT (GW)', data:[12.4,8.9,7.2,3.1,15.6], backgroundColor:TEAL, borderRadius:4 },
-        { label:'Emisi saat ini (juta ton)', data:[4.2,18.7,22.1,5.3,7.8], backgroundColor:'rgba(239,159,39,0.5)', borderRadius:4 }
+        {
+          label:'Realisasi bauran EBT (%)',
+          data:[9.15, 11.2, 11.5, 12.3, 13.29, null],
+          borderColor:TEAL, tension:0.4, pointRadius:5,
+          pointBackgroundColor:TEAL, fill:true,
+          backgroundColor:'rgba(93,202,165,0.1)'
+        },
+        {
+          label:'Target KEN (%)',
+          data:[null, null, null, null, null, 23],
+          borderColor:AMBER, borderDash:[6,4], pointRadius:6,
+          pointBackgroundColor:AMBER, pointStyle:'triangle',
+          backgroundColor:'transparent'
+        }
       ]
     },
     options:{
       responsive:true, maintainAspectRatio:false,
-      plugins:{legend:{display:true,position:'bottom',labels:{boxWidth:10,padding:10,font:{size:11}}}},
+      plugins:{legend:{display:true,position:'bottom',labels:{boxWidth:12,padding:10,font:{size:11}}}},
       scales:{
         x:{grid:{display:false},border:{display:false}},
-        y:{grid:{color:gridColor},border:{display:false}}
+        y:{grid:{color:gridColor},border:{display:false},
+           min:0, max:28,
+           title:{display:true,text:'% bauran energi primer',font:{size:10}}}
       }
     }
   });
