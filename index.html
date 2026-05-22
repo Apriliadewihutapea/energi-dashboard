@@ -1023,95 +1023,103 @@ function updateUI(n) {
   document.getElementById('sdgBaseline').textContent = Math.round(RATA_KWH_BULAN * 12 * FAKTOR_EMISI).toLocaleString('id-ID') + ' kg CO\u2082e';
 }
 
-/* ── Update semua chart & bar survei dari data Google Sheets ── */
+/* ── Update semua chart & bar survei dari data Google Sheets ──
+   Kolom berdasarkan struktur form aktual (diverifikasi dari data CSV):
+   [0] Timestamp
+   [1] Nama
+   [2] Provinsi
+   [3] Status tempat tinggal
+   [4] Tagihan listrik bulanan       ← kolom 4
+   [5] Daya listrik terpasang
+   [6] Perangkat elektronik          ← kolom 6
+   [7] Jam AC menyala
+   [8] Mematikan lampu
+   [9] Lampu LED
+   [10] Tahu cara hitung jejak karbon ← kolom 10
+   [11] Sumber informasi energi       ← kolom 11
+   [12] Penting isu iklim
+   [13] Bersedia ubah kebiasaan       ← kolom 13
+   [14] Hambatan hemat energi
+   [15] Masukan (opsional)
+── */
 function updateSurveiCharts(rows) {
   var n = rows.length;
   if (n === 0) return;
-  var headers = Object.keys(rows[0]);
 
-  /* Tagihan listrik */
-  var kolT = cariKolom(headers, 'tagihan');
-  if (kolT) {
-    var t = [0,0,0,0,0];
-    rows.forEach(function(r) {
-      var v = r[kolT] || '';
-      if      (ada(v,'100.000') && !ada(v,'200') && !ada(v,'500'))  t[0]++;
-      else if (ada(v,'200.000') && !ada(v,'500'))                    t[1]++;
-      else if (ada(v,'500.000') && !ada(v,'1.000'))                  t[2]++;
-      else if (ada(v,'1.000.000') && !ada(v,'atas'))                 t[3]++;
-      else if (ada(v,'atas') || ada(v,'Di atas'))                    t[4]++;
-    });
-    chartTagihan.data.datasets[0].data = t.map(function(v){ return pct(v,n); });
-    chartTagihan.update();
-    document.getElementById('subTagihan').textContent = 'Distribusi responden (n=' + n + ')';
+  /* Ambil nilai kolom berdasarkan indeks (lebih andal dari nama kolom) */
+  function kolom(row, idx) {
+    var vals = Object.values(row);
+    return (vals[idx] || '').trim();
   }
 
-  /* Literasi jejak karbon */
-  var kolL = cariKolom(headers, 'karbon');
-  if (kolL) {
-    var bisa=0, konsep=0, tidak=0;
-    rows.forEach(function(r) {
-      var v = r[kolL] || '';
-      if      (ada(v,'bisa') && ada(v,'hitung')) bisa++;
-      else if (ada(v,'konsep') || ada(v,'tidak bisa'))  konsep++;
-      else                                               tidak++;
-    });
-    chartLiterasi.data.datasets[0].data = [pct(tidak,n), pct(konsep,n), pct(bisa,n)];
-    chartLiterasi.update();
-    document.getElementById('subLiterasi').textContent = 'Tingkat literasi karbon (n=' + n + ')';
-  }
+  /* ── Tagihan listrik (kolom 4) ── */
+  var t = [0,0,0,0,0]; /* <100rb | 100-200rb | 200-500rb | 500rb-1jt | >1jt */
+  rows.forEach(function(r) {
+    var v = kolom(r, 4);
+    if      (ada(v,'Di bawah'))                  t[0]++;
+    else if (ada(v,'100.000') && ada(v,'200'))   t[1]++;
+    else if (ada(v,'200.001') || (ada(v,'200') && ada(v,'500'))) t[2]++;
+    else if (ada(v,'500.001') || (ada(v,'500') && ada(v,'1.000'))) t[3]++;
+    else if (ada(v,'Di atas'))                   t[4]++;
+  });
+  chartTagihan.data.datasets[0].data = t.map(function(v){ return pct(v,n); });
+  chartTagihan.update();
+  document.getElementById('subTagihan').textContent = 'Distribusi responden (n=' + n + ')';
 
-  /* Perangkat elektronik (checkbox — bisa pilih banyak) */
-  var kolP = cariKolom(headers, 'perangkat');
-  if (kolP) {
-    var ac=0,kulkas=0,cuci=0,water=0,tv=0,laptop=0;
-    rows.forEach(function(r) {
-      var v = r[kolP] || '';
-      if (ada(v,'AC') || ada(v,'pendingin'))   ac++;
-      if (ada(v,'Kulkas') || ada(v,'lemari'))  kulkas++;
-      if (ada(v,'Mesin cuci'))                 cuci++;
-      if (ada(v,'Water heater'))               water++;
-      if (ada(v,'TV') || ada(v,'set-top'))     tv++;
-      if (ada(v,'Laptop') || ada(v,'komputer'))laptop++;
-    });
-    setBar('ac',          pct(ac,n));
-    setBar('kulkas',      pct(kulkas,n));
-    setBar('mesincuci',   pct(cuci,n));
-    setBar('waterheater', pct(water,n));
-    setBar('tv',          pct(tv,n));
-    setBar('laptop',      pct(laptop,n));
-  }
+  /* ── Literasi jejak karbon (kolom 10) ── */
+  var bisa=0, konsep=0, tidak=0;
+  rows.forEach(function(r) {
+    var v = kolom(r, 10);
+    if      (ada(v,'Ya') && ada(v,'bisa'))   bisa++;
+    else if (ada(v,'konsep'))                konsep++;
+    else                                     tidak++;
+  });
+  chartLiterasi.data.datasets[0].data = [pct(tidak,n), pct(konsep,n), pct(bisa,n)];
+  chartLiterasi.update();
+  document.getElementById('subLiterasi').textContent = 'Tingkat literasi karbon (n=' + n + ')';
 
-  /* Kesediaan mengubah kebiasaan */
-  var kolK = cariKolom(headers, 'bersedia') || cariKolom(headers, 'kebiasaan');
-  if (kolK) {
-    var k1=0,k2=0,k3=0,k4=0;
-    rows.forEach(function(r) {
-      var v = r[kolK] || '';
-      if      (ada(v,'Sangat') || ada(v,'sudah mulai')) k1++;
-      else if (ada(v,'Bersedia') || ada(v,'panduan'))   k2++;
-      else if (ada(v,'ragu'))                            k3++;
-      else if (ada(v,'Belum') || ada(v,'tertarik'))     k4++;
-    });
-    setBar('k1',pct(k1,n)); setBar('k2',pct(k2,n));
-    setBar('k3',pct(k3,n)); setBar('k4',pct(k4,n));
-  }
+  /* ── Perangkat elektronik (kolom 6) — checkbox, bisa pilih banyak ── */
+  var ac=0, kulkas=0, cuci=0, water=0, tv=0, laptop=0;
+  rows.forEach(function(r) {
+    var v = kolom(r, 6);
+    if (ada(v,'AC') || ada(v,'pendingin'))    ac++;
+    if (ada(v,'Kulkas') || ada(v,'lemari'))   kulkas++;
+    if (ada(v,'Mesin cuci'))                  cuci++;
+    if (ada(v,'Water heater'))                water++;
+    if (ada(v,'TV') || ada(v,'set-top'))      tv++;
+    if (ada(v,'Laptop') || ada(v,'komputer')) laptop++;
+  });
+  setBar('ac',          pct(ac,n));
+  setBar('kulkas',      pct(kulkas,n));
+  setBar('mesincuci',   pct(cuci,n));
+  setBar('waterheater', pct(water,n));
+  setBar('tv',          pct(tv,n));
+  setBar('laptop',      pct(laptop,n));
 
-  /* Sumber informasi energi (checkbox) */
-  var kolS = cariKolom(headers, 'informasi') || cariKolom(headers, 'sumber');
-  if (kolS) {
-    var s1=0,s2=0,s3=0,s4=0,s5=0;
-    rows.forEach(function(r) {
-      var v = r[kolS] || '';
-      if (ada(v,'Media sosial') || ada(v,'Instagram') || ada(v,'TikTok')) s1++;
-      if (ada(v,'Berita') || ada(v,'portal'))                              s2++;
-      if (ada(v,'Keluarga') || ada(v,'teman'))                            s3++;
-      if (ada(v,'Kampus') || ada(v,'sekolah'))                            s4++;
-      if (ada(v,'pemerintah') || ada(v,'ESDM') || ada(v,'KLHK'))         s5++;
-    });
-    setBar('s1',pct(s1,n)); setBar('s2',pct(s2,n)); setBar('s3',pct(s3,n));
-    setBar('s4',pct(s4,n)); setBar('s5',pct(s5,n));
-  }
+  /* ── Kesediaan ubah kebiasaan (kolom 13) ── */
+  var k1=0, k2=0, k3=0, k4=0;
+  rows.forEach(function(r) {
+    var v = kolom(r, 13);
+    if      (ada(v,'Sangat bersedia') || ada(v,'sudah mulai')) k1++;
+    else if (ada(v,'Bersedia') || ada(v,'panduan'))            k2++;
+    else if (ada(v,'ragu'))                                    k3++;
+    else if (ada(v,'Belum') || ada(v,'tertarik'))              k4++;
+  });
+  setBar('k1',pct(k1,n)); setBar('k2',pct(k2,n));
+  setBar('k3',pct(k3,n)); setBar('k4',pct(k4,n));
+
+  /* ── Sumber informasi energi (kolom 11) — checkbox ── */
+  var s1=0, s2=0, s3=0, s4=0, s5=0;
+  rows.forEach(function(r) {
+    var v = kolom(r, 11);
+    if (ada(v,'Media sosial') || ada(v,'Instagram') || ada(v,'TikTok')) s1++;
+    if (ada(v,'Berita') || ada(v,'portal'))                              s2++;
+    if (ada(v,'Keluarga') || ada(v,'teman'))                            s3++;
+    if (ada(v,'Kampus') || ada(v,'sekolah'))                            s4++;
+    if (ada(v,'pemerintah') || ada(v,'ESDM') || ada(v,'KLHK'))         s5++;
+  });
+  setBar('s1',pct(s1,n)); setBar('s2',pct(s2,n)); setBar('s3',pct(s3,n));
+  setBar('s4',pct(s4,n)); setBar('s5',pct(s5,n));
 }
 
 /* ── Fetch live data ── */
@@ -1147,9 +1155,34 @@ async function fetchLiveData() {
   }
 }
 
+/* ── Auto-refresh setiap 5 menit ── */
+var REFRESH_INTERVAL_MS = 5 * 60 * 1000; /* 5 menit */
+var hitungMundur = REFRESH_INTERVAL_MS / 1000;
+
+function mulaiCountdown() {
+  hitungMundur = REFRESH_INTERVAL_MS / 1000;
+  var countdown = setInterval(function() {
+    hitungMundur--;
+    var statusEl = document.getElementById('liveStatus');
+    if (statusEl && statusEl.className === 'live-status success') {
+      var menit = Math.floor(hitungMundur / 60);
+      var detik = hitungMundur % 60;
+      var label = menit > 0
+        ? 'Refresh otomatis dalam ' + menit + ' mnt ' + detik + ' dtk'
+        : 'Refresh otomatis dalam ' + detik + ' dtk';
+      /* hanya tampilkan countdown, jangan timpa pesan error */
+      var baris = statusEl.textContent.split(' \u2014 ')[0];
+      statusEl.textContent = baris + ' \u2014 ' + label;
+    }
+    if (hitungMundur <= 0) {
+      clearInterval(countdown);
+      fetchLiveData().then(mulaiCountdown);
+    }
+  }, 1000);
+}
+
 /* ── Jalankan saat halaman dimuat ── */
-fetchLiveData();
-/* FIX: animateBars saat load awal karena tab Survey mungkin aktif via hash */
+fetchLiveData().then(mulaiCountdown);
 animateBars();
 </script>
 </body>
