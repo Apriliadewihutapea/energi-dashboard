@@ -90,13 +90,12 @@ Reduksi per RT/tahun            : ~215 kg CO₂e
 
 ### ⏳ Tahap 2 — Pilot Project (2025–2026) `Berlangsung`
 - Peluncuran dashboard publik sebagai media edukasi utama
-- Kolaborasi dengan komunitas mahasiswa di **3 kampus pilot**
 - Sesi edukasi berbasis visualisasi dashboard (bukan presentasi konvensional)
 - Dokumentasi metodologi untuk replikasi
 - Evaluasi perubahan pengetahuan dan niat perilaku responden
 
 ### 📋 Tahap 3 — Replikasi & Integrasi Kebijakan (2026+) `Direncanakan`
-- Adopsi model oleh **5 universitas** di kota berbeda (SDG 17)
+- Adopsi model oleh universitas-universitas di kota berbeda (SDG 17)
 - Integrasi dengan program efisiensi energi daerah
 - Publikasi open-source kerangka model untuk komunitas nasional
 - Target: **1.000+ rumah tangga teredukasi**
@@ -142,7 +141,7 @@ energi-dashboard/
 
 ## 📄 Lisensi
 
-Model data dan kerangka metodologi bersifat **open-source** — bebas diadopsi oleh komunitas lain dengan menyesuaikan data input lokal.
+Model data dan kerangka metodologi bersifat **open-source**, bebas diadopsi oleh komunitas lain dengan menyesuaikan data input lokal.
 
 ---
 
