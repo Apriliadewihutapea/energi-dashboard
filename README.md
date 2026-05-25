@@ -81,20 +81,20 @@ Reduksi per RT/tahun            : ~215 kg CO₂e
 
 ## 🗺️ Roadmap Pengembangan
 
-### ✅ Tahap 1 — Fondasi (2024–2025) `Selesai`
+### ✅ Tahap 1: Fondasi (2024–2025) `Selesai`
 - Penyusunan model analisis data konsumsi energi rumah tangga urban
 - Survei Google Form kepada 250+ responden
 - Integrasi data sekunder: PLN, ESDM, KLHK, BPS
 - Validasi model dengan data aktual
 - Peluncuran dashboard EnergiData v1.0 (live)
 
-### ⏳ Tahap 2 — Pilot Project (2025–2026) `Berlangsung`
+### ⏳ Tahap 2: Pilot Project (2025–2026) `Berlangsung`
 - Peluncuran dashboard publik sebagai media edukasi utama
 - Sesi edukasi berbasis visualisasi dashboard (bukan presentasi konvensional)
 - Dokumentasi metodologi untuk replikasi
 - Evaluasi perubahan pengetahuan dan niat perilaku responden
 
-### 📋 Tahap 3 — Replikasi & Integrasi Kebijakan (2026+) `Direncanakan`
+### 📋 Tahap 3: Replikasi & Integrasi Kebijakan (2026+) `Direncanakan`
 - Adopsi model oleh universitas-universitas di kota berbeda (SDG 17)
 - Integrasi dengan program efisiensi energi daerah
 - Publikasi open-source kerangka model untuk komunitas nasional
